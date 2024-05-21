@@ -73,8 +73,6 @@ header {
 }
 
 .game-lisitng-container div.game-listing:hover {
-    /*width: calc(var(--game-listing-width) + 2%);
-    height: calc(var(--game-listing-height) + 2%);*/
     transform: scale(1.1);
 } 
 
@@ -94,4 +92,68 @@ header {
 .card-body {
     width: 102%;
     transform: translate(-1%, -1%);
+}
+
+/*Game Listing Style*/
+
+.group-listing-container {
+    width: 95%;
+    margin: 1% 2.5%;
+    overflow-y: auto;
+}
+
+.group-listing {
+    border-style: solid;
+    border-color: grey;
+    border-width: 4px;
+    border-radius: 4px;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.group-listing button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.tag {
+    margin: 0 5px;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.listing-text {
+    overflow-y: auto;
+}
+
+.group-listings-header {
+    width: 99%;
+    height: 175px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.group-listings-header div.card {
+    width: 75%;
+    height: 95%;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.group-listings-header div.card img.card-img-top {
+    position: relative;
+    height: 70%;
+}
+
+.group-listings-header div.card h3.card-title {
+    text-align: center;
+}
+
+.group-listings-header-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    
 }
