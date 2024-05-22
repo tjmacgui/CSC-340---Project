@@ -3,8 +3,7 @@
     --secondary-color: rgb(219, 171, 238);
     --tertiary-color: rgb(255, 255, 255);
     --transparent: rgba(0, 0, 0, 0);
-    --game-listing-width: 14rem;
-    --game-listing-height: 17rem;
+    
 }
 
 body {
@@ -59,6 +58,17 @@ header {
     object-fit: contain;
 }
 
+li.nav-item a.nav-link {
+    color: var(--tertiary-color);
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+li.nav-item a.nav-link:hover {
+    color: lightgray;
+    transition: 400ms;
+}
+
 /*Game Listings*/
 
 .game-lisitng-container {
@@ -70,6 +80,8 @@ header {
     justify-content: flex-start;
     margin: 1% 2.5%;
     transition: 1s;
+    --game-listing-width: 14rem;
+    --game-listing-height: 17rem;
 }
 
 .game-lisitng-container div.game-listing:hover {
@@ -208,7 +220,7 @@ header {
     border-style: solid;
     object-position: center;
     border-radius: 50%;
-    margin: 5px;
+    margin: 20px 5px;
 }
 
 .card-button-topright {
@@ -219,4 +231,48 @@ header {
     background-color: var(--transparent);
     border: none;
     font-size: 30px;
+}
+
+/*User Account*/
+
+.account-img-container {
+    --img-width: 200px;
+    --img-height: 200px;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    border-style: solid;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.account-img {
+    width: var(--img-width);
+    height: var(--img-height);
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.button-edit-bottomright {
+    background-color: var(--transparent);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+}
+
+.account-info-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: var(--tertiary-color);
+    border-style: solid;
+    font-size: 50px;
+}
+
+.account-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
