@@ -26,6 +26,10 @@ body {
     background-color: var(--transparent);
 }
 
+button {
+    border-radius: 4px;
+}
+
 /*Navbar*/
 
 header {
@@ -275,4 +279,68 @@ li.nav-item a.nav-link:hover {
 .account-info {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+/*User Login*/
+.login-form-container {
+    background-color: var(--tertiary-color);
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.login-form-input {
+    margin: 20px;
+}
+
+.login-form-container button {
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.login-form-container a {
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    left: calc(50% - 1em);
+}
+
+/*User Signup*/
+.pfp-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.pfp-option {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 120px;
+    height: auto;
+}
+
+.pfp-option label {
+    display: block;
+    cursor: pointer;
+    flex: 5;
+    object-fit: scale-down;
+    margin: 10px;
+    overflow: hidden;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.pfp-option label img {
+    transform: scale(0.7);
+}
+
+a.signin {
+    transform: translateX(-5em);
 }
