@@ -26,6 +26,10 @@ body {
     background-color: var(--transparent);
 }
 
+.gray-transparent {
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
 button {
     border-radius: 4px;
 }
