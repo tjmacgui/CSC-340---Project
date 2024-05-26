@@ -1,0 +1,350 @@
+* {
+    --primary-color: rgb(174, 86, 201);
+    --secondary-color: rgb(219, 171, 238);
+    --tertiary-color: rgb(255, 255, 255);
+    --transparent: rgba(0, 0, 0, 0);
+    
+}
+
+body {
+    background-color: var(--secondary-color);
+}
+
+.primary-color {
+    background-color: var(--primary-color);
+}
+
+.secondary-color {
+    background-color: var(--secondary-color);
+}
+
+.tertiary-color {
+    background-color: var(--tertiary-color);
+}
+
+.transparent {
+    background-color: var(--transparent);
+}
+
+.gray-transparent {
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
+button {
+    border-radius: 4px;
+}
+
+/*Navbar*/
+
+header {
+    overflow: hidden;
+}
+
+.search {
+    --search-padding: 14px;
+
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: var(--search-padding);
+    background: #f6f6f6;
+}
+
+.search-input {
+    font-size: 16px;
+    color: #333333;
+    margin-left: var(--search-padding);
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 300px;
+}
+
+.topnavbar-logo img {
+    overflow: hidden;
+    object-fit: contain;
+}
+
+li.nav-item a.nav-link {
+    color: var(--tertiary-color);
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+li.nav-item a.nav-link:hover {
+    color: lightgray;
+    transition: 400ms;
+}
+
+/*Game Listings*/
+
+.game-lisitng-container {
+    overflow-y: auto;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 1% 2.5%;
+    transition: 1s;
+    --game-listing-width: 14rem;
+    --game-listing-height: 17rem;
+}
+
+.game-lisitng-container div.game-listing:hover {
+    transform: scale(1.1);
+} 
+
+
+.game-lisitng-container a {
+    text-decoration: none;
+    color: var(--tertiary-color);
+}
+
+.game-listing {
+    box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    width: var(--game-listing-width);
+    height: var(--game-listing-height);
+    margin: 20px 20px;
+}
+
+.card-body {
+    width: 102%;
+    transform: translate(-1%, -1%);
+}
+
+/*Game Listing Style*/
+
+.group-listing-container {
+    width: 95%;
+    margin: 1% 2.5%;
+    overflow-y: auto;
+}
+
+.group-listing {
+    border-style: solid;
+    border-color: grey;
+    border-width: 4px;
+    border-radius: 4px;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.group-listing button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.tag {
+    margin: 0 5px;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.listing-text {
+    overflow-y: auto;
+}
+
+.group-listings-header {
+    width: 99%;
+    height: 175px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.group-listings-header div.card {
+    width: 75%;
+    height: 95%;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.group-listings-header div.card img.card-img-top {
+    position: relative;
+    height: 70%;
+}
+
+.group-listings-header div.card h3.card-title {
+    text-align: center;
+}
+
+.group-listings-header-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+/*Your Groups Page*/
+.joined-groups-container, .owned-groups-container {
+    width: 90vw;
+    height: 400px;
+    margin-left: 2.5vw;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: lightgray;
+    border-style: solid;
+    border-width: 4px;
+    overflow-y: auto;
+}
+
+.joined-groups-container div.group-listing {
+    margin: 20px 0;
+}
+
+.owned-groups-container div.group-listing {
+    margin: 20px 0;
+}
+
+/*Friends*/
+.friends-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 5%;
+}
+
+.friend {
+    --img-height: 200px;
+    --img-width: 200px;
+    width: var(--game-listing-width);
+    position: relative;
+    margin: 10px 0;
+}
+
+.friend img {
+    transform: scale(0.5);
+}
+
+.friend div.card-img-container {
+    width: calc(var(--img-width) + 5px);
+    height: calc(var(--img-height) + 5px);
+    border-style: solid;
+    object-position: center;
+    border-radius: 50%;
+    margin: 20px 5px;
+}
+
+.card-button-topright {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: auto;
+    background-color: var(--transparent);
+    border: none;
+    font-size: 30px;
+}
+
+/*User Account*/
+
+.account-img-container {
+    --img-width: 200px;
+    --img-height: 200px;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    border-style: solid;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.account-img {
+    width: var(--img-width);
+    height: var(--img-height);
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.button-edit-bottomright {
+    background-color: var(--transparent);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+}
+
+.account-info-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: var(--tertiary-color);
+    border-style: solid;
+    font-size: 50px;
+}
+
+.account-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*User Login*/
+.login-form-container {
+    background-color: var(--tertiary-color);
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.login-form-input {
+    margin: 20px;
+}
+
+.login-form-container button {
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.login-form-container a {
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    left: calc(50% - 1em);
+}
+
+/*User Signup*/
+.pfp-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.pfp-option {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 120px;
+    height: auto;
+}
+
+.pfp-option label {
+    display: block;
+    cursor: pointer;
+    flex: 5;
+    object-fit: scale-down;
+    margin: 10px;
+    overflow: hidden;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.pfp-option label img {
+    transform: scale(0.7);
+}
+
+a.signin {
+    transform: translateX(-5em);
+}
