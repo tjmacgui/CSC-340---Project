@@ -16,9 +16,11 @@
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
         <link href="./../Style/UI_style.css" rel="stylesheet">
+        <link href="./../Style/password_style.css" rel="stylesheet">
     </head>
 
     <body>
+
         <!--Navigational Menu-->
         <header class="primary-color sticky-top">
             <nav class="navbar">
@@ -63,18 +65,63 @@
         <br>
 
         <div class="login-form-container">
-            <form>
-                <div class="login-form-input">
-                    <label for="userLoginUsername" class="form-label">Username</label>
-                    <input id="userLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">
-                </div>
-                <div class="login-form-input">
-                    <label for="userLoginPassword" class="form-label">Password</label>
-                    <input id="userLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">
-                </div>
-            </form>
-            <button type="submit" class="btn btn-primary" href="./user-account.html">Login</button>
-            <a class="signup text-center" href="./user-account-signup.html">Signup</a>
+
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'user')"id="defaultOpen">user</button>
+                <button class="tablinks" onclick="openCity(event, 'admin')">admin</button>
+
+            </div>
+
+
+            <div id="user" class="tabcontent">
+                <form>
+                    <div class="login-form-input">
+                        <label for="userLoginUsername" class="form-label">Username</label>
+                        <input id="userLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">
+                    </div>
+                    <div class="login-form-input">
+                        <label for="userLoginPassword" class="form-label">Password</label>
+                        <input id="userLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">
+                    </div>
+                </form>
+                <button  class="btn btn-primary" onclick="window.location.href='user-account-signup.html'" float="left">Sign up</button>
+                <button  type="submit" class="btn btn-primary" onclick="window.location.href='user-account.html'"float="left">Login</button>
+            </div>
+
+            <div id="admin" class="tabcontent">
+                <form>
+                    <div class="login-form-input">
+                        <label for="adminLoginUsername" class="form-label">Username</label>
+                        <input id="adminLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">
+                    </div>
+                    <div class="login-form-input">
+                        <label for="adminLoginPassword" class="form-label">Password</label>
+                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-primary" onclick="window.location.href='admin-interface.html'">
+                    Login
+                </button>
+            </div>
+
         </div>
+        <script>
+            function openCity(evt, cityName) {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.className += " active";
+            }
+
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+        </script>
     </body>
 </html>

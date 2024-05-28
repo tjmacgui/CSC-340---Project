@@ -10,4 +10,5 @@ public class SpringIoApplication {
 		SpringApplication.run(SpringIoApplication.class, args);
 	}
 
+
 }
