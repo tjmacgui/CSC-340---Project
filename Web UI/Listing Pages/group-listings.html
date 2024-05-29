@@ -20,6 +20,25 @@
     </head>
 
     <body>
+        <!-- Modal -->
+        <div class="modal fade" id="sortModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sort Groups By:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Form goes here
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Sort</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <!--Navigational Menu-->
         <header class="secondary-color sticky-top">
             <nav class="navbar">
@@ -67,9 +86,11 @@
                 </div>
             </div>
             <div class="group-listings-header-buttons-container flex-column">
-                <button>Favorite</button>
-                <button>Create Group</button>
-                <button>Sort By</button>
+                <button data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Favorite Game"><i class="fa-regular fa-star"></i></button>
+                <button type="button" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Create A New Group"><i class="fa-solid fa-circle-plus"></i></button>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Sort Groups">
+                    <button data-bs-toggle="modal" data-bs-target="#sortModal"><i class="fa-solid fa-list"></i></button>
+                </span>
             </div>
         </div>
 
@@ -87,7 +108,7 @@
                     <div class="tag">Tag 3</div>
                 </div>
                 <p class="listing-text">Group description goes here</p>
-                <button>Join</button>
+                <button class="tt" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Join Group"><i class="fa-solid fa-users-line"></i></button>
             </div>
         </div>
 
@@ -101,7 +122,7 @@
                     <div class="tag">Tag 3</div>
                 </div>
                 <p class="listing-text">Group description goes here</p>
-                <button>Join</button>
+                <button class="tt" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Join Group"><i class="fa-solid fa-users-line"></i></button>
             </div>
         </div>
         <div class="flex group-listing-container">
@@ -113,7 +134,7 @@
                     <div class="tag">Tag 3</div>
                 </div>
                 <p class="listing-text">Group description goes here</p>
-                <button>Join</button>
+                <button class="tt" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Join Group"><i class="fa-solid fa-users-line"></i></button>
             </div>
         </div>
         <div class="flex group-listing-container">
@@ -125,7 +146,7 @@
                     <div class="tag">Tag 3</div>
                 </div>
                 <p class="listing-text">Group description goes here</p>
-                <button>Join</button>
+                <button class="tt" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Join Group"><i class="fa-solid fa-users-line"></i></button>
             </div>
         </div>
         <div class="flex group-listing-container">
@@ -137,8 +158,21 @@
                     <div class="tag">Tag 3</div>
                 </div>
                 <p class="listing-text">Group description goes here</p>
-                <button>Join</button>
+                <button class="tt" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Join Group"><i class="fa-solid fa-users-line"></i></button>
             </div>
         </div>
+
+        <!--Tooltip Script-->
+        <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+            const myModal = document.getElementById('myModal');
+            const myInput = document.getElementById('myInput');
+
+            myModal.addEventListener('shown.bs.modal', () => {
+                myInput.focus()
+            });
+        </script>
     </body>
 </html>
