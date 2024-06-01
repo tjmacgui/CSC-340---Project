@@ -1,13 +1,14 @@
 * {
-    --primary-color: rgb(174, 86, 201);
-    --secondary-color: rgb(219, 171, 238);
-    --tertiary-color: rgb(255, 255, 255);
+    --primary-color: #C55FFC;
+    --secondary-color: #69327a;
+    --tertiary-color: #EFDCF9;
+    --quaternary-color: #506369;
     --transparent: rgba(0, 0, 0, 0);
     
 }
 
 body {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .primary-color {
@@ -20,6 +21,10 @@ body {
 
 .tertiary-color {
     background-color: var(--tertiary-color);
+}
+
+.quaternary-color {
+    background-color: var(--quaternary-color);
 }
 
 .transparent {
@@ -48,7 +53,7 @@ header {
     align-items: center;
     padding: 14px;
     border-radius: var(--search-padding);
-    background: #f6f6f6;
+    background: var(--tertiary-color);
 }
 
 .search-input {
@@ -73,7 +78,7 @@ li.nav-item a.nav-link {
 }
 
 li.nav-item a.nav-link:hover {
-    color: lightgray;
+    color: var(--quaternary-color);
     transition: 400ms;
 }
 
@@ -124,7 +129,7 @@ li.nav-item a.nav-link:hover {
 
 .group-listing {
     border-style: solid;
-    border-color: grey;
+    border-color: var(--quaternary-color);
     border-width: 4px;
     border-radius: 4px;
     padding: 10px;
@@ -136,6 +141,9 @@ li.nav-item a.nav-link:hover {
     position: absolute;
     top: 5px;
     right: 5px;
+    background-color: var(--transparent);
+    border: none;
+    font-size: 25px;
 }
 
 .tag {
@@ -178,6 +186,13 @@ li.nav-item a.nav-link:hover {
     
 }
 
+.group-listings-header-buttons-container button {
+    background-color: transparent;
+    border: none;
+    color: var(--tertiary-color);
+    font-size: 40px;
+}
+
 /*Your Groups Page*/
 .joined-groups-container, .owned-groups-container {
     width: 90vw;
@@ -187,7 +202,7 @@ li.nav-item a.nav-link:hover {
     padding-right: 2.5vw;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: lightgray;
+    background-color: var(--quaternary-color);
     border-style: solid;
     border-width: 4px;
     overflow-y: auto;
