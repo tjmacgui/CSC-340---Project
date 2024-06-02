@@ -1,5 +1,6 @@
 package csc340project.example.springio.User.OwnedGame;
 
+import csc340project.example.springio.GameListings.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 /**
@@ -15,22 +16,21 @@ public class OwnedGameController {
     @Autowired
     private OwnedGameService ownedGameService;
 
-/** TODO: waiting on game listing
     @Autowired
-    private GameListingService gameListingService;
+    private ListingService listingService;
 
-    @GetMapping
-    public String getAllOwnedGames() {
-        List<OwnedGame> ownedGames = ownedGameService.getAllOwnedGames();
-        StringBuilder response = new StringBuilder();
-        for (OwnedGame ownedGame : ownedGames) {
-            response.append(ownedGame.getId()).append(", ")
-                    .append(ownedGame.getGameListing().getGameName()).append(", ")
-                    .append(ownedGame.getUser().getUserId()).append("\n");
-        }
-        return response.toString();
-    }
-**/
+//    @GetMapping
+//    public String getAllOwnedGames() {
+//        List<OwnedGame> ownedGames = ownedGameService.getAllOwnedGames();
+//        StringBuilder response = new StringBuilder();
+//        for (OwnedGame ownedGame : ownedGames) {
+//            response.append(ownedGame.getId()).append(", ")
+//                    .append(ownedGame.getListingId().getGameName()).append(", ")
+//                    .append(ownedGame.getUser().getUserId()).append("\n");
+//        }
+//        return response.toString();
+//    }
+
     @PostMapping
     public String createOwnedGame(@RequestBody OwnedGame ownedGame) {
         OwnedGame savedOwnedGame = ownedGameService.saveOwnedGame(ownedGame);
@@ -54,7 +54,7 @@ public class OwnedGameController {
     public String getOwnedGameById(@PathVariable Integer id) {
         Optional<OwnedGame> ownedGame = ownedGameService.getOwnedGameById(id);
         return ownedGame.map(value -> value.getId() + ", " +
-                value.getGameListing().getGameName() + ", " +
+                value.getListingId().getGameName() + ", " +
                 value.getUser().getUserId()).orElse("OwnedGame not found");
     }
 **/

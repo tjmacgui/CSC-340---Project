@@ -36,7 +36,7 @@ public class GroupListingController {
     @GetMapping({"/", "", "/view"})
     public String viewAllGroupListings(@PathVariable("gameId") String gameIdString, Model model) {
         int gameId = Integer.parseInt(gameIdString);
-        model.addAttribute("game", gameListingService.getGameLisingById(gameId));
+        model.addAttribute("game", gameListingService.getGameListingById(gameId));
         model.addAttribute("groupListings", groupListingService.getAllGroupListingsForGame(gameId));
         return "group-listings";
     }
@@ -44,7 +44,7 @@ public class GroupListingController {
     @GetMapping("/search/{searchInput}")
     public String sortGroupListingsBySearch(@PathVariable("gameId") String gameIdString, @PathVariable("searchInput") String searchInput, Model model) {
         int gameId = Integer.parseInt(gameIdString);
-        model.addAttribute("game", gameListingService.getGameLisingById(gameId));
+        model.addAttribute("game", gameListingService.getGameListingById(gameId));
         model.addAttribute("groupListings", groupListingService.getGroupsBySearch(searchInput, gameId));
         return "group-listings";
     }

@@ -1,5 +1,7 @@
 package csc340project.example.springio.User.OwnedGame;
 
+import csc340project.example.springio.GameListings.Listing;
+import csc340project.example.springio.GameListings.ListingRepo;
 import csc340project.example.springio.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,10 @@ public class OwnedGameService {
     @Autowired
     private OwnedGameRepository ownedGameRepository;
 
-/** TODO: waiting on game listing
     @Autowired
-    private GameListingRepository gameListingRepository;
-**/
+    ListingRepo listingRepo;
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -38,18 +40,18 @@ public class OwnedGameService {
         ownedGameRepository.deleteById(id);
     }
 
-/** TODO: waiting on game listing
+
     public Optional<OwnedGame> createOwnedGameWithGameListing(Integer userId, Integer gameListingId, OwnedGame ownedGame) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             ownedGame.setUser(user.get());
-            Optional<GameListing> gameListing = gameListingRepository.findById(gameListingId);
+            Optional<Listing> gameListing = listingRepo.findById(gameListingId);
             if (gameListing.isPresent()) {
-                ownedGame.setGameListing(gameListing.get());
+                ownedGame.setListingId(gameListing.get());
                 return Optional.of(ownedGameRepository.save(ownedGame));
             }
         }
         return Optional.empty();
     }
-**/
+
 }

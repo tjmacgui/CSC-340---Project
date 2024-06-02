@@ -11,7 +11,7 @@ import java.util.*;
 public class Listing {
     //GameID int PK
     @Id
-    private int GameID;
+    private int ListingId;
 
     //title TINYTEXT not null
     @Nonnull
@@ -32,20 +32,20 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(int gameID, String genre, String gameImageURL, Date releaseDate, @Nonnull String title) {
-        GameID = gameID;
+    public Listing(int listingId, String genre, String gameImageURL, Date releaseDate, @Nonnull String title) {
+        ListingId = listingId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
         ReleaseDate = releaseDate;
         this.title = title;
     }
 
-    public int getGameID() {
-        return GameID;
+    public int getListingId() {
+        return ListingId;
     }
 
-    public void setGameID(int gameID) {
-        GameID = gameID;
+    public void setListingId(int listingId) {
+        ListingId = listingId;
     }
 
     public String getGenre() {

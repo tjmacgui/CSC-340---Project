@@ -1,5 +1,6 @@
 package csc340project.example.springio.User.OwnedGame;
 
+import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.User.User;
 // TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListing;
 import jakarta.persistence.*;
@@ -14,11 +15,11 @@ public class OwnedGame {
     @JoinColumn(name = "user_id")
     private User user;
 
-    /** TODO: waiting on game listing
     @ManyToOne
-    @JoinColumn(name = "game_listing_id")
-    private GameListing gameListing;
-**/
+    @JoinColumn(name = "ListingId")
+    private Listing ListingId;
+
+
     // Getters and Setters
     public Integer getId() {
         return id;
@@ -36,13 +37,13 @@ public class OwnedGame {
         this.user = user;
     }
 
-/** TODO: waiting on game listing
-    public GameListing getGameListing() {
-        return gameListing;
+
+    public Listing getListingId() {
+        return ListingId;
     }
 
-    public void setGameListing(GameListing gameListing) {
-        this.gameListing = gameListing;
+    public void setListingId(Listing listingId) {
+        this.ListingId = listingId;
     }
- **/
+
 }

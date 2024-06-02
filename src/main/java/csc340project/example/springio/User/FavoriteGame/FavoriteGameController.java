@@ -1,5 +1,6 @@
 package csc340project.example.springio.User.FavoriteGame;
 
+import csc340project.example.springio.GameListings.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +13,18 @@ import java.util.Optional;
 public class FavoriteGameController {
     @Autowired
     private FavoriteGameService favoriteGameService;
-    /** TODO: waiting on game listing
-    @Autowired
-    private GameListingService gameListingService;
 
+    @Autowired
+    private ListingService gameListingService;
+
+    /** TODO: waiting on game listing
     @GetMapping
     public String getAllFavoriteGames() {
         List<FavoriteGame> favoriteGames = favoriteGameService.getAllFavoriteGames();
         StringBuilder response = new StringBuilder();
         for (FavoriteGame favoriteGame : favoriteGames) {
             response.append(favoriteGame.getId()).append(", ")
-                    .append(favoriteGame.getGameListing().getGameName()).append(", ")
+                    .append(favoriteGame.getListingId().getGameName()).append(", ")
                     .append(favoriteGame.getUser().getUserId()).append("\n");
         }
         return response.toString();
@@ -49,7 +51,7 @@ public class FavoriteGameController {
     public String getFavoriteGameById(@PathVariable Integer id) {
         Optional<FavoriteGame> favoriteGame = favoriteGameService.getFavoriteGameById(id);
         return favoriteGame.map(value -> value.getId() + ", " +
-                value.getGameListing().getGameName() + ", " +
+                value.getListingId().getGameName() + ", " +
                 value.getUser().getUserId()).orElse("FavoriteGame not found");
     }
  **/

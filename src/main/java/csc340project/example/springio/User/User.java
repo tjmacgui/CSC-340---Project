@@ -34,7 +34,7 @@ public class User {
     private Boolean isFlagged;
 
     //For other tables
-    /** TODO: waiting on game listing
+    /** waiting on game listing
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FavoriteGame> favoriteGames;
 
@@ -108,7 +108,7 @@ public class User {
         this.isFlagged = isFlagged;
     }
 
-/** TODO: waiting on game listing
+/**  waiting on game listing
     public List<FavoriteGame> getFavoriteGames() {
         return favoriteGames;
     }

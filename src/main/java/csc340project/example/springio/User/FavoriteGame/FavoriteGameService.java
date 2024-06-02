@@ -42,7 +42,7 @@ public class FavoriteGameService {
             favoriteGame.setUser(user.get());
             Optional<GameListing> gameListing = gameListingRepository.findById(gameListingId);
             if (gameListing.isPresent()) {
-                favoriteGame.setGameListing(gameListing.get());
+                favoriteGame.setListingId(gameListing.get());
                 return Optional.of(favoriteGameRepository.save(favoriteGame));
             }
         }
