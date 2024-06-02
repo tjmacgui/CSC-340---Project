@@ -21,6 +21,10 @@ public class AdminController {
         return "/User Pages/user-account-login";
     }
 
+    @GetMapping("admin/dashboard")
+    public String dashbaord(){
+        return "/User Pages/admin-interface";
+    }
     @GetMapping("/admin/login")
     public String login() {
         return "/User Pages/admin-login";

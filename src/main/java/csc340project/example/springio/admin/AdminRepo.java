@@ -1,4 +1,6 @@
 package csc340project.example.springio.admin;
 
-public interface AdminRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdminRepo extends JpaRepository<SysAdmin, Integer> {
 }

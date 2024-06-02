@@ -24,6 +24,8 @@ public class SecConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/admin/login")
+                        .defaultSuccessUrl("/admin/dashboard", true)
+                        .failureUrl("/admin/login?error=true")
                         .permitAll()
                 ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout((logout) -> logout.permitAll());
