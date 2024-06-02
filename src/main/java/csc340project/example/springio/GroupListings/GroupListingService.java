@@ -1,5 +1,7 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GroupMember.GroupMember;
+import csc340project.example.springio.GroupMember.GroupMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ public class GroupListingService {
     GroupListingRepository groupListingRepository;
 
     @Autowired
-    GroupMemberRepository groupMemberRepository;
+    GroupMemberService groupMemberService;
 
     public GroupListing getGroupListingById(int id) {
         return groupListingRepository.getGroupListingById(id);
@@ -25,8 +27,14 @@ public class GroupListingService {
         return groupListingRepository.getAllGroupListingsFromTitle(gameId, searchInput);
     }
 
+    /**
+     * Checks if user exists in the given group listing.
+     * @param userId Specified user ID
+     * @param groupId Specified group ID
+     * @return returns true if exists else false
+     */
     public boolean userInGroup(int userId, int groupId) {
-        return groupMemberRepository.userExistsInGroup(userId, groupId);
+        return groupMemberService.userExistsInGroup(userId, groupId);
     }
 
     public boolean userIsOwner(int userId, int groupId) {
@@ -44,5 +52,14 @@ public class GroupListingService {
 
     public void updateGroupListing(GroupListing groupListing) {
         groupListingRepository.save(groupListing);
+    }
+
+    public void removeMember(int memberId, int groupId) {
+        groupMemberService.removeMember(memberId, groupId);
+    }
+
+    public void addNewMember(int groupId, int userId) {
+        GroupMember groupMember = new GroupMember(userId, false, groupId);
+        groupMemberService.addNewMember(groupMember);
     }
 }

@@ -2,6 +2,7 @@ package csc340project.example.springio.GroupListings;
 
 import csc340project.example.springio.GameTags.Tag;
 import csc340project.example.springio.GameTags.TagService;
+import csc340project.example.springio.GroupMember.GroupMember;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "GroupListings")
+@Table(name = "Group Listings")
 public class GroupListing {
     private static final int MINMEMBERCOUNT = 2;
     private static final int MAXMEMBERCOUNT = 12;
