@@ -3,6 +3,7 @@ package csc340project.example.springio.User.BannedAccount;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
+@Table(name = "banned-account")
 @Entity
 public class BannedAccount {
     @Id

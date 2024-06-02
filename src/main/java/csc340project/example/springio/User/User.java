@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Table(name = "user")
 @Entity
 public class User {
     //For User

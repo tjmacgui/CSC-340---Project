@@ -4,6 +4,7 @@ import csc340project.example.springio.User.User;
 // TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListing;
 import jakarta.persistence.*;
 
+@Table(name = "owned_game")
 @Entity
 public class OwnedGame {
     @Id

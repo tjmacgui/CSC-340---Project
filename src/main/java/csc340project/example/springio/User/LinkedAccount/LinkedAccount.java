@@ -3,6 +3,7 @@ package csc340project.example.springio.User.LinkedAccount;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
+@Table(name = "linked_account")
 @Entity
 public class LinkedAccount {
     @Id

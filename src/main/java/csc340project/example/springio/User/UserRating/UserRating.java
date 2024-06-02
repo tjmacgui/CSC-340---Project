@@ -3,6 +3,7 @@ package csc340project.example.springio.User.UserRating;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
+@Table(name = "user_rating")
 @Entity
 public class UserRating {
     @Id
