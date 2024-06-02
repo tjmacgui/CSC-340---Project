@@ -3,6 +3,7 @@ package csc340project.example.springio.User.UserReport;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
+@Table(name = "user_report")
 @Entity
 public class UserReport {
     @Id
