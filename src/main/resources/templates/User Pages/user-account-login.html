@@ -7,7 +7,7 @@
 <html lang="en">
     <head>
         <title>Account Login</title>
-        <link rel="icon" type="image/x-icon" href="./../IMG/LOOKING_FOR_GROUP_LOGO.png">
+        <link rel="icon" type="image/x-icon" href="LOOKING_FOR_GROUP_LOGO.png">
         <!--Proper Scaling-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--Bootstrap Linking-->
@@ -15,8 +15,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
-        <link href="./../Style/UI_style.css" rel="stylesheet">
-        <link href="./../Style/password_style.css" rel="stylesheet">
+        <link href="css/UI_style.css" rel="stylesheet">
+        <link href="css/password_style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -35,24 +35,24 @@
                         </div>
                     </form>
                     <div class="topnavbar-logo">
-                        <a class="navbar-brand" href="./../index.html">
-                            <img src="./../IMG/LOOKING_FOR_GROUP_LOGO.png" alt="EZLFG" width="110px" height="70px">
+                        <a class="navbar-brand" href="../index.html">
+                            <img src="LOOKING_FOR_GROUP_LOGO.png" alt="EZLFG" width="110px" height="70px">
                         </a>
                     </div>
                 </div>
                 <div id="navMenu" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="./../index.html">Home</a>
+                            <a class="nav-link" href="../index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./../User Pages/user-groups.html">Your Groups</a>
+                            <a class="nav-link" href="user-groups.html">Your Groups</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./../User Pages/user-friends.html">Friends</a>
+                            <a class="nav-link" href="user-friends.html">Friends</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./../User Pages/user-account.html">Your Account</a>
+                            <a class="nav-link" href="user-account.html">Your Account</a>
                         </li>
                     </ul>
                 </div>
@@ -89,18 +89,18 @@
             </div>
 
             <div id="admin" class="tabcontent">
-                <form>
-                    <div class="login-form-input">
-                        <label for="adminLoginUsername" class="form-label">Username</label>
-                        <input id="adminLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">
-                    </div>
-                    <div class="login-form-input">
-                        <label for="adminLoginPassword" class="form-label">Password</label>
-                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">
-                    </div>
-                </form>
-                <button type="submit" class="btn btn-primary" onclick="window.location.href='admin-interface.html'">
-                    Login
+<!--                <form>-->
+<!--                    <div class="login-form-input">-->
+<!--                        <label for="adminLoginUsername" class="form-label">Username</label>-->
+<!--                        <input id="adminLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">-->
+<!--                    </div>-->
+<!--                    <div class="login-form-input">-->
+<!--                        <label for="adminLoginPassword" class="form-label">Password</label>-->
+<!--                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">-->
+<!--                    </div>-->
+<!--                </form>-->
+                <button type="submit" class="btn btn-primary" onclick="window.location.href='admin/login'">
+                    SysAdmin Login
                 </button>
             </div>
 
