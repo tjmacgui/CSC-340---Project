@@ -1,5 +1,6 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GameListings.ListingService;
 import csc340project.example.springio.GroupMember.GroupMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class GroupListingController {
     GroupListingService groupListingService;
 
     @Autowired
-    GameListingService gameListingService;
+    ListingService gameListingService;
 
     @Autowired
     GroupMemberService groupMemberService;

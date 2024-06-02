@@ -1,14 +1,12 @@
 package csc340project.example.springio.GameTags;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "GameTags")
 public class Tag {
+    @Id
     @ManyToOne
     @JoinColumn(name = "game_id")
     public int gameId; //foreign key that references the game that the tag belongs to

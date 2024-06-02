@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Group Members")
 public class GroupMember {
+    @Id
     @ManyToOne
     @JoinColumn(name = "listing_id")
     private int listingId;          //foreign key referencing the group listing this member belongs to
