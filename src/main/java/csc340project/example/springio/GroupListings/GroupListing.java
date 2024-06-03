@@ -49,7 +49,7 @@ public class GroupListing {
 
     private LocalDateTime endDateTime; //group start date and time
 
-    private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group
+    private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group, default val is the min number of allowed members
 
     private int openMemberSpots = maxNumMembers - 1; //defines the number of open spots in a group, default value accounts for owner
 
@@ -105,10 +105,16 @@ public class GroupListing {
         }
     }
 
+    /**
+     * Decrements open member spots and should be called everytime a new member joins the group.
+     */
     public void memberJoin() {
         this.openMemberSpots--;
     }
 
+    /**
+     * Increments open member spots and should be called everytime a member leaves the group.
+     */
     public void memberLeaves() {
         this.openMemberSpots++;
     }
