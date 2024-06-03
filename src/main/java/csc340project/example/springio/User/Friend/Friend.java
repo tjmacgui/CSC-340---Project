@@ -1,8 +1,10 @@
 package csc340project.example.springio.User.Friend;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
+@Table(name = "friend")
 @Entity
 public class Friend {
     @Id
@@ -11,6 +13,7 @@ public class Friend {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     private String friendName;

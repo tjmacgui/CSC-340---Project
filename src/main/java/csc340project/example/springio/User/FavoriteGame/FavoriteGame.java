@@ -1,10 +1,9 @@
 package csc340project.example.springio.User.FavoriteGame;
 
-import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.User.User;
-// TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListing;
 import jakarta.persistence.*;
 
+@Table(name = "favorite_game")
 @Entity
 public class FavoriteGame {
     @Id
@@ -14,11 +13,11 @@ public class FavoriteGame {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+/** TODO: waiting on game listing
     @ManyToOne
-    @JoinColumn(name = "ListingId")
-    private Listing gameListing;
-
+    @JoinColumn(name = "game_listing_id")
+    private GameListing gameListing;
+**/
     // Getters and Setters
     public Integer getId() {
         return id;
@@ -35,12 +34,13 @@ public class FavoriteGame {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Listing getListingId() {
+/** TODO: waiting on game listing
+    public GameListing getGameListing() {
         return gameListing;
     }
 
-    public void setListingId(Listing gameListing) {
+    public void setGameListing(GameListing gameListing) {
         this.gameListing = gameListing;
     }
+**/
 }

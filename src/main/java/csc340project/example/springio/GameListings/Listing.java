@@ -1,17 +1,20 @@
 package csc340project.example.springio.GameListings;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import csc340project.example.springio.GameTags.Tag;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "GameListings")
 public class Listing {
     //GameID int PK
     @Id
+    @JsonManagedReference
     private int listingId;
 
     //title TINYTEXT not null

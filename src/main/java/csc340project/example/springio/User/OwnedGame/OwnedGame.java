@@ -1,12 +1,11 @@
 package csc340project.example.springio.User.OwnedGame;
 
-import csc340project.example.springio.GameListings.Listing;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import csc340project.example.springio.User.User;
-// TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListing;
 import jakarta.persistence.*;
 
+@Table(name = "owned_game")
 @Entity
-@Table(name = "OwnedGame")
 public class OwnedGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,18 +13,20 @@ public class OwnedGame {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
+    /**
     @ManyToOne
-    @JoinColumn(name = "ListingId")
-    private Listing ListingId;
-
+    @JoinColumn(name = "listing_id")
+    @JsonBackReference
+    private Listing gameListing;
 
     // Getters and Setters
     public Integer getId() {
         return id;
     }
-
+ **/
     public void setId(Integer id) {
         this.id = id;
     }
@@ -38,13 +39,13 @@ public class OwnedGame {
         this.user = user;
     }
 
-
-    public Listing getListingId() {
-        return ListingId;
+/**
+    public Listing getGameListing() {
+        return gameListing;
     }
 
-    public void setListingId(Listing listingId) {
-        this.ListingId = listingId;
+    public void setGameListing(Listing gameListing) {
+        this.gameListing = gameListing;
     }
-
+**/
 }

@@ -1,21 +1,19 @@
 package csc340project.example.springio.User.FavoriteGame;
 
-import csc340project.example.springio.GameListings.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 // TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListingService;
-import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/user/favoriteGames")
 public class FavoriteGameController {
     @Autowired
     private FavoriteGameService favoriteGameService;
-
+    /** TODO: waiting on game listing
     @Autowired
-    private ListingService gameListingService;
+    private GameListingService gameListingService;
 
     @GetMapping
     public String getAllFavoriteGames() {
@@ -23,18 +21,18 @@ public class FavoriteGameController {
         StringBuilder response = new StringBuilder();
         for (FavoriteGame favoriteGame : favoriteGames) {
             response.append(favoriteGame.getId()).append(", ")
-                    .append(favoriteGame.getListingId().getTitle()).append(", ")
+                    .append(favoriteGame.getGameListing().getGameName()).append(", ")
                     .append(favoriteGame.getUser().getUserId()).append("\n");
         }
         return response.toString();
     }
-
+     **/
     @PostMapping
     public String createFavoriteGame(@RequestBody FavoriteGame favoriteGame) {
         FavoriteGame savedFavoriteGame = favoriteGameService.saveFavoriteGame(favoriteGame);
         return "FavoriteGame created with ID: " + savedFavoriteGame.getId();
     }
-
+/** TODO: waiting on game listing
     @PostMapping("/user/{userId}/gameListing/{gameListingId}")
     public String createFavoriteGameWithGameListing(
             @PathVariable Integer userId,
@@ -50,10 +48,10 @@ public class FavoriteGameController {
     public String getFavoriteGameById(@PathVariable Integer id) {
         Optional<FavoriteGame> favoriteGame = favoriteGameService.getFavoriteGameById(id);
         return favoriteGame.map(value -> value.getId() + ", " +
-                value.getListingId().getTitle() + ", " +
+                value.getGameListing().getGameName() + ", " +
                 value.getUser().getUserId()).orElse("FavoriteGame not found");
     }
-
+ **/
     @DeleteMapping("/{id}")
     public String deleteFavoriteGame(@PathVariable Integer id) {
         favoriteGameService.deleteFavoriteGame(id);

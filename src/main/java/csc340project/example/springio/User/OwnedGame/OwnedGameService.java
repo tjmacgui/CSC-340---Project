@@ -1,13 +1,9 @@
 package csc340project.example.springio.User.OwnedGame;
 
-import csc340project.example.springio.GameListings.Listing;
-import csc340project.example.springio.GameListings.ListingRepo;
-import csc340project.example.springio.User.User;
+
+import csc340project.example.springio.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-// TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListingRepository;
-import csc340project.example.springio.User.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +13,10 @@ public class OwnedGameService {
     @Autowired
     private OwnedGameRepository ownedGameRepository;
 
+/** TODO: waiting on game listing
     @Autowired
-    ListingRepo listingRepo;
-
-
+    private GameListingRepository gameListingRepository;
+**/
     @Autowired
     private UserRepository userRepository;
 
@@ -40,18 +36,18 @@ public class OwnedGameService {
         ownedGameRepository.deleteById(id);
     }
 
-
+/** TODO: waiting on game listing
     public Optional<OwnedGame> createOwnedGameWithGameListing(Integer userId, Integer gameListingId, OwnedGame ownedGame) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             ownedGame.setUser(user.get());
-            Optional<Listing> gameListing = listingRepo.findById(gameListingId);
+            Optional<GameListing> gameListing = gameListingRepository.findById(gameListingId);
             if (gameListing.isPresent()) {
-                ownedGame.setListingId(gameListing.get());
+                ownedGame.setGameListing(gameListing.get());
                 return Optional.of(ownedGameRepository.save(ownedGame));
             }
         }
         return Optional.empty();
     }
-
+**/
 }

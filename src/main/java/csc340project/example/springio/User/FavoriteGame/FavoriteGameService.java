@@ -1,12 +1,9 @@
 package csc340project.example.springio.User.FavoriteGame;
 
-import csc340project.example.springio.GameListings.Listing;
-import csc340project.example.springio.User.User;
+import csc340project.example.springio.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import csc340project.example.springio.GameListings.ListingRepo;
-import csc340project.example.springio.User.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +11,10 @@ import java.util.Optional;
 public class FavoriteGameService {
     @Autowired
     private FavoriteGameRepository favoriteGameRepository;
-
+/** TODO: waiting for game listing
     @Autowired
-    private ListingRepo gameListingRepository;
-
+    private GameListingRepository gameListingRepository;
+**/
     @Autowired
     private UserRepository userRepository;
 
@@ -37,16 +34,18 @@ public class FavoriteGameService {
         favoriteGameRepository.deleteById(id);
     }
 
+/** TODO: waiting for game listing
     public Optional<FavoriteGame> createFavoriteGameWithGameListing(Integer userId, Integer gameListingId, FavoriteGame favoriteGame) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             favoriteGame.setUser(user.get());
-            Optional<Listing> gameListing = gameListingRepository.findById(gameListingId);
+            Optional<GameListing> gameListing = gameListingRepository.findById(gameListingId);
             if (gameListing.isPresent()) {
-                favoriteGame.setListingId(gameListing.get());
+                favoriteGame.setGameListing(gameListing.get());
                 return Optional.of(favoriteGameRepository.save(favoriteGame));
             }
         }
         return Optional.empty();
     }
+    **/
 }

@@ -1,8 +1,10 @@
 package csc340project.example.springio.admin;
 
 
-import jakarta.annotation.*;
-import jakarta.persistence.*;
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Admin Login")
