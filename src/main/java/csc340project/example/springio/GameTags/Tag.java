@@ -1,5 +1,6 @@
 package csc340project.example.springio.GameTags;
 
+import csc340project.example.springio.GameListings.Listing;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
@@ -7,26 +8,23 @@ import jakarta.persistence.*;
 @Table(name = "GameTags")
 public class Tag {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @ManyToOne
-    @JoinColumn(name = "game_id")
-    public int gameId; //foreign key that references the game that the tag belongs to
+    @JoinColumn(name = "listing_id")
+    public Listing listing; //foreign key that references the game that the tag belongs to
 
     @Nonnull
     public String tagName; //describes the tag for users to view on groups, such as "Newbie Friendly"
 
-    public Tag() {}
 
-    public Tag(int gameId, @Nonnull String tagName) {
-        this.gameId = gameId;
-        this.tagName = tagName;
+    public Listing getListing() {
+        return listing;
     }
 
-    public int getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setListing(Listing listing) {
+        this.listing = listing;
     }
 
     @Nonnull

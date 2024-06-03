@@ -6,6 +6,7 @@ import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "OwnedGame")
 public class OwnedGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

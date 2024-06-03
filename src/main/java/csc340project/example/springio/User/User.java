@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
     //For User
     @Id
@@ -34,13 +35,12 @@ public class User {
     private Boolean isFlagged;
 
     //For other tables
-    /** waiting on game listing
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FavoriteGame> favoriteGames;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OwnedGame> ownedGames;
-    **/
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Friend> friends;
 

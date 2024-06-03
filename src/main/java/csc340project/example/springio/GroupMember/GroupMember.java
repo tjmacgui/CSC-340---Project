@@ -1,42 +1,44 @@
 package csc340project.example.springio.GroupMember;
 
+import csc340project.example.springio.GroupListings.GroupListing;
+import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Group Members")
 public class GroupMember {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @ManyToOne
-    @JoinColumn(name = "listing_id")
-    private int listingId;          //foreign key referencing the group listing this member belongs to
+    @JoinColumn(name = "group_listing_id")
+    private GroupListing groupListing;          //foreign key referencing the group listing this member belongs to
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private int userId;             //foreign key referencing the group members user ID
+    private User userId;             //foreign key referencing the group members user ID
 
-    private boolean isReady;        //signifies if member is ready or not
+    private boolean isReady = false;        //signifies if member is ready or not
 
-    public GroupMember() {}
-
-    public GroupMember(int userId, boolean isReady, int listingId) {
+    public GroupMember(GroupListing groupListing, User userId) {
+        this.groupListing = groupListing;
         this.userId = userId;
-        this.isReady = isReady;
-        this.listingId = listingId;
     }
 
-    public int getListingId() {
-        return listingId;
+    public GroupListing getGroupListing() {
+        return groupListing;
     }
 
-    public void setListingId(int listingId) {
-        this.listingId = listingId;
+    public void setGroupListing(GroupListing groupListing) {
+        this.groupListing = groupListing;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

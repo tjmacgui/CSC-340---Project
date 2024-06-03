@@ -4,6 +4,7 @@ import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "UserReports")
 public class UserReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

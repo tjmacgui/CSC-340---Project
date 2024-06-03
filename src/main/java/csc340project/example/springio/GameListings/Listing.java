@@ -1,5 +1,6 @@
 package csc340project.example.springio.GameListings;
 
+import csc340project.example.springio.GameTags.Tag;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,11 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.*;
 
 @Entity
-@Table(name = "Game-Listings")
+@Table(name = "GameListings")
 public class Listing {
     //GameID int PK
     @Id
-    private int ListingId;
+    private int listingId;
 
     //title TINYTEXT not null
     @Nonnull
@@ -29,11 +30,13 @@ public class Listing {
     //Genre VARCHAR
     private String genre;
 
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tag> tags;
     public Listing() {
     }
 
-    public Listing(int listingId, String genre, String gameImageURL, Date releaseDate, @Nonnull String title) {
-        ListingId = listingId;
+    public Listing(int listingId, String genre, String gameImageURL, Date releaseDate, String title) {
+        this.listingId = listingId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
         ReleaseDate = releaseDate;
@@ -41,11 +44,11 @@ public class Listing {
     }
 
     public int getListingId() {
-        return ListingId;
+        return listingId;
     }
 
     public void setListingId(int listingId) {
-        ListingId = listingId;
+        this.listingId = listingId;
     }
 
     public String getGenre() {
@@ -77,7 +80,7 @@ public class Listing {
         return title;
     }
 
-    public void setTitle(@Nonnull String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 }

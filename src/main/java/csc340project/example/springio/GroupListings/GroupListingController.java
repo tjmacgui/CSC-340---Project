@@ -5,10 +5,7 @@ import csc340project.example.springio.GroupMember.GroupMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -77,8 +74,9 @@ public class GroupListingController {
         }
     }
 
+    /*Todo:fix
     @PostMapping("/{groupId}/update")
-    public String updateGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, GroupListing groupListing, Model model) {
+    public String updateGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, @RequestBody GroupListing groupListing, Model model) {
         int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
         int groupId = Integer.parseInt(groupIdString);
@@ -92,7 +90,7 @@ public class GroupListingController {
     }
 
     @PostMapping("/create")
-    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, GroupListing groupListing, Model model) {
+    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @RequestBody GroupListing groupListing, Model model) {
         int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
 
@@ -103,7 +101,7 @@ public class GroupListingController {
         model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.CREATE));
         return "redirect:" + requestString(userIdString, gameIdString) + "/";
     }
-
+*/
     @GetMapping("/{groupId}/leave")
     public String userLeaveGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, Model model) {
         int gameId = Integer.parseInt(gameIdString);

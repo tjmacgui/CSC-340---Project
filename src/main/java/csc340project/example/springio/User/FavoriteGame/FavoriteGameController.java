@@ -17,25 +17,24 @@ public class FavoriteGameController {
     @Autowired
     private ListingService gameListingService;
 
-    /** TODO: waiting on game listing
     @GetMapping
     public String getAllFavoriteGames() {
         List<FavoriteGame> favoriteGames = favoriteGameService.getAllFavoriteGames();
         StringBuilder response = new StringBuilder();
         for (FavoriteGame favoriteGame : favoriteGames) {
             response.append(favoriteGame.getId()).append(", ")
-                    .append(favoriteGame.getListingId().getGameName()).append(", ")
+                    .append(favoriteGame.getListingId().getTitle()).append(", ")
                     .append(favoriteGame.getUser().getUserId()).append("\n");
         }
         return response.toString();
     }
-     **/
+
     @PostMapping
     public String createFavoriteGame(@RequestBody FavoriteGame favoriteGame) {
         FavoriteGame savedFavoriteGame = favoriteGameService.saveFavoriteGame(favoriteGame);
         return "FavoriteGame created with ID: " + savedFavoriteGame.getId();
     }
-/** TODO: waiting on game listing
+
     @PostMapping("/user/{userId}/gameListing/{gameListingId}")
     public String createFavoriteGameWithGameListing(
             @PathVariable Integer userId,
@@ -51,10 +50,10 @@ public class FavoriteGameController {
     public String getFavoriteGameById(@PathVariable Integer id) {
         Optional<FavoriteGame> favoriteGame = favoriteGameService.getFavoriteGameById(id);
         return favoriteGame.map(value -> value.getId() + ", " +
-                value.getListingId().getGameName() + ", " +
+                value.getListingId().getTitle() + ", " +
                 value.getUser().getUserId()).orElse("FavoriteGame not found");
     }
- **/
+
     @DeleteMapping("/{id}")
     public String deleteFavoriteGame(@PathVariable Integer id) {
         favoriteGameService.deleteFavoriteGame(id);
