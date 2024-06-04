@@ -8,7 +8,11 @@ import csc340project.example.springio.User.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -37,6 +41,8 @@ public class GroupListing {
     private String title; //group title is a nonnull
 
     @Nonnull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date listingPostDate; //date when listing was posted
 
     private List<String> availableTags; //list of available tags to this group listing based on it's game
@@ -45,8 +51,12 @@ public class GroupListing {
 
     private String description; //group listing description
 
+    @DateTimeFormat()
+    @Temporal(TemporalType.DATE)
     private LocalDateTime startDateTime; //group start date and time
 
+    @DateTimeFormat()
+    @Temporal(TemporalType.DATE)
     private LocalDateTime endDateTime; //group start date and time
 
     private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group, default val is the min number of allowed members
