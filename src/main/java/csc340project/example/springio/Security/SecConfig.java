@@ -13,21 +13,26 @@ public class SecConfig {
 
     private UserLoginService userLoginService;
 
+    public SecConfig(UserLoginService userLoginService) {
+        this.userLoginService = userLoginService;
+    }
+
+    //TODO: set up user/admin login instead of allow all
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/idk").permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("SYSADMIN")
-//                        .requestMatchers("/mod/**").hasAnyRole("KNIGHT", "MASTER")
+                        .requestMatchers("/**").permitAll()
+                        //.requestMatchers("/admin/**").hasRole("ADMIN")
+                        //.requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/admin/login")
-                        .defaultSuccessUrl("/admin/dashboard", true)
-                        .failureUrl("/admin/login?error=true")
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/dashboard", true)
+                        .failureUrl("/login?error=true")
                         .permitAll()
-                ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
+                )
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
