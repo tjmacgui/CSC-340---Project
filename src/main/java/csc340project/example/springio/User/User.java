@@ -20,7 +20,7 @@ public class User {
     @Column(length = 15, nullable = false)
     private String username;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
 
     private Integer profileImageId;
@@ -28,6 +28,11 @@ public class User {
     private java.sql.Date profileCreationDate;
 
     private boolean isFlagged;
+
+    //TODO: leader ranking and thumbs up
+
+    private int leaderRanking;
+    private int thumbsUp;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -136,5 +141,21 @@ public class User {
 
     public void setBannedAccounts(List<BannedAccount> bannedAccounts) {
         this.bannedAccounts = bannedAccounts;
+    }
+
+    public int getLeaderRanking() {
+        return leaderRanking;
+    }
+
+    public void setLeaderRanking(int leaderRanking) {
+        this.leaderRanking = leaderRanking;
+    }
+
+    public int getThumbsUp() {
+        return thumbsUp;
+    }
+
+    public void setThumbsUp(int thumbsUp) {
+        this.thumbsUp = thumbsUp;
     }
 }

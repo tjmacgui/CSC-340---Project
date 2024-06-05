@@ -63,13 +63,19 @@
             <h1 class="text-center">Your Account</h1>
             <br>
             <div class="account-img-container">
+                <!-- TODO profile pic -->
                 <img src="./../IMG/user-regular.svg" class="account-img">
                 <button class="button-edit-bottomright"><i class="fa-solid fa-pencil"></i></button>
             </div>
             <div class="account-info-container text-center">
+                <div class="account-info">Username: <span th:text="${username}">S4mpl3Us3r</span></div>
+                <div class="account-info">Leader Ranking: <span th:text="${leaderRanking}">100%</span></div>
+                <div class="account-info"><i class="fa-regular fa-thumbs-up"></i> <span th:text="${thumbsUp}">0</span></div>
+                <!-- keeping because im not great at html
                 <div class="account-info">Username: S4mpl3Us3r</div>
                 <div class="account-info">Leader Ranking: 100%</div>
                 <div class="account-info"><i class="fa-regular fa-thumbs-up"></i></div>
+                -->
             </div>
         </main>
     </body>

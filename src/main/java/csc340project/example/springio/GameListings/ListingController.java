@@ -1,7 +1,5 @@
 package csc340project.example.springio.GameListings;
 
-//import csc340project.example.Listing.Listing;
-//import csc340project.example.Listing.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
