@@ -4,7 +4,7 @@
 <!--CSC340 Group Project-->
 <!--Code written by and belongs to: Ethan Moore, Collin Rodgers, and Thomas Macguire-->
 
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Account Login</title>
         <link rel="icon" type="image/x-icon" href="LOOKING_FOR_GROUP_LOGO.png">
@@ -85,7 +85,10 @@
                             <input id="password" class="form-control form-control-lg" type="password" maxlength="20" name="password">
                         </div>
                         <div th:if="${param.error}">
-                            <p th:text="'Invalid credentials'" style="color: red;"></p>
+                            <p th:text="'Invalid username or password'" style="color: red;"></p>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <p style="color: green;">You have been logged out successfully.</p>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>

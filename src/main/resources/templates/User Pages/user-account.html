@@ -4,7 +4,7 @@
 <!--CSC340 Group Project-->
 <!--Code written by and belongs to: Ethan Moore, Collin Rodgers, and Thomas Macguire-->
 
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Account</title>
         <link rel="icon" type="image/x-icon" href="./../IMG/EZLFG-logo.ico">
@@ -52,6 +52,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./user-account.html">Your Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users/logout}">Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -3,6 +3,8 @@ package csc340project.example.springio.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,18 +26,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
-    }
-
     @GetMapping("/login")
     public String loginPage(Model model) {
         return "User Pages/user-account-login";
@@ -49,16 +39,40 @@ public class UserController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("leaderRanking", user.getLeaderRanking());
             model.addAttribute("thumbsUp", user.getThumbsUp());
-            return "User Pages/user-account";  // Return template name without path or extension
+            return "User Pages/user-account";
         } else {
             model.addAttribute("error", "Invalid credentials");
-            return "User Pages/user-account-login";  // Return template name without path or extension
+            return "User Pages/user-account-login";
         }
     }
 
     @GetMapping("/account")
     public String getUserAccount(Model model) {
+        // Assuming the user is already authenticated and their data is in the session or context
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            User user = userService.findByUsername(username);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("leaderRanking", user.getLeaderRanking());
+            model.addAttribute("thumbsUp", user.getThumbsUp());
+        }
         return "User Pages/user-account";
+    }
+
+    @GetMapping("/signup")
+    public String signupPage(Model model) {
+        return "User Pages/user-account-signup";
+    }
+
+    @PostMapping("/signup")
+    public String signupUser(@ModelAttribute User user, Model model) {
+        if (userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("error", "Username already exists");
+            return "User Pages/user-account-signup";
+        }
+        userService.saveUser(user);
+        return "redirect:/users/account";
     }
 
     @GetMapping("/profile/{userId}")

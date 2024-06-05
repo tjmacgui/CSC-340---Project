@@ -5,8 +5,4 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AppController {
-    @GetMapping({"", "/", "/home", "/index"})
-    public String home(){
-        return "redirect:/games/view";
-    }
 }
