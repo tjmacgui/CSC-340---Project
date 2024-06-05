@@ -1,13 +1,12 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GameListings.ListingService;
 import csc340project.example.springio.GroupMember.GroupMemberService;
+import csc340project.example.springio.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,7 +22,10 @@ public class GroupListingController {
     GroupListingService groupListingService;
 
     @Autowired
-    GameListingService gameListingService;
+    ListingService gameListingService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     GroupMemberService groupMemberService;
@@ -35,7 +37,7 @@ public class GroupListingController {
     @GetMapping({"/", "", "/view"})
     public String viewAllGroupListings(@PathVariable("gameId") String gameIdString, Model model) {
         int gameId = Integer.parseInt(gameIdString);
-        model.addAttribute("game", gameListingService.getGameLisingById(gameId));
+        model.addAttribute("game", gameListingService.getGameListingById(gameId));
         model.addAttribute("groupListings", groupListingService.getAllGroupListingsForGame(gameId));
         return "group-listings";
     }
@@ -43,7 +45,7 @@ public class GroupListingController {
     @GetMapping("/search/{searchInput}")
     public String sortGroupListingsBySearch(@PathVariable("gameId") String gameIdString, @PathVariable("searchInput") String searchInput, Model model) {
         int gameId = Integer.parseInt(gameIdString);
-        model.addAttribute("game", gameListingService.getGameLisingById(gameId));
+        model.addAttribute("game", gameListingService.getGameListingById(gameId));
         model.addAttribute("groupListings", groupListingService.getGroupsBySearch(searchInput, gameId));
         return "group-listings";
     }
@@ -77,26 +79,26 @@ public class GroupListingController {
     }
 
     @PostMapping("/{groupId}/update")
-    public String updateGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, GroupListing groupListing, Model model) {
+    public String updateGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, @RequestBody GroupListing groupListing, Model model) {
         int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
         int groupId = Integer.parseInt(groupIdString);
 
-        groupListing.setGameId(gameId);
-        groupListing.setOwnerId(userId);
-        groupListing.setListingId(groupId);
+        groupListing.setGameId(gameListingService.getGameListingById(gameId));
+        groupListing.setOwnerId(userService.getUserById(userId).get());
+        groupListing.setGroupListingId(groupId);
 
         model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.UPDATE));
         return "redirect:" + requestString(userIdString, gameIdString) + "/";
     }
 
     @PostMapping("/create")
-    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, GroupListing groupListing, Model model) {
+    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @RequestBody GroupListing groupListing, Model model) {
         int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
 
-        groupListing.setGameId(gameId);
-        groupListing.setOwnerId(userId);
+        groupListing.setGameId(gameListingService.getGameListingById(gameId));
+        groupListing.setOwnerId(userService.getUserById(userId).get());
         groupListing.setListingPostDate(new Date());
 
         model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.CREATE));
@@ -118,6 +120,7 @@ public class GroupListingController {
             return "redirect:" + requestString(userIdString, gameIdString) + "/";
         } else {
             groupListingService.removeMember(userId, groupId);
+            groupListingService.getGroupListingById(groupId).memberLeaves();
             model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.LEAVE));
             return "redirect:" + requestString(userIdString, gameIdString) + "/";
         }

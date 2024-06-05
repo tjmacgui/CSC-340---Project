@@ -1,20 +1,18 @@
 package csc340project.example.springio.User;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import csc340project.example.springio.User.BannedAccount.BannedAccount;
-import csc340project.example.springio.User.FavoriteGame.FavoriteGame;
 import csc340project.example.springio.User.Friend.Friend;
 import csc340project.example.springio.User.LinkedAccount.LinkedAccount;
-import csc340project.example.springio.User.OwnedGame.OwnedGame;
 import csc340project.example.springio.User.UserRating.UserRating;
 import csc340project.example.springio.User.UserReport.UserReport;
 import jakarta.persistence.*;
-import java.util.Date;
+
 import java.util.List;
 
 @Table(name = "user")
 @Entity
 public class User {
-    //For User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -27,38 +25,29 @@ public class User {
 
     private Integer profileImageId;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Date profileCreationDate;
+    private java.sql.Date profileCreationDate;
 
-    @Column(nullable = false)
-    private Boolean isFlagged;
-
-    //For other tables
-    /** TODO: waiting on game listing
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FavoriteGame> favoriteGames;
+    private boolean isFlagged;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OwnedGame> ownedGames;
-    **/
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Friend> friends;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserRating> userRatings;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<LinkedAccount> linkedAccounts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<UserRating> userRatings;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<UserReport> userReports;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Friend> friends;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<BannedAccount> bannedAccounts;
-
-    @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserReport> reportsMade;
-
-    @OneToMany(mappedBy = "reported", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserReport> reportsReceived;
 
     // Getters and Setters
     public Integer getUserId() {
@@ -93,53 +82,20 @@ public class User {
         this.profileImageId = profileImageId;
     }
 
-    public Date getProfileCreationDate() {
+    public java.sql.Date getProfileCreationDate() {
         return profileCreationDate;
     }
 
-    public void setProfileCreationDate(Date profileCreationDate) {
+    public void setProfileCreationDate(java.sql.Date profileCreationDate) {
         this.profileCreationDate = profileCreationDate;
     }
 
-    public Boolean getIsFlagged() {
+    public boolean isFlagged() {
         return isFlagged;
     }
 
-    public void setIsFlagged(Boolean isFlagged) {
-        this.isFlagged = isFlagged;
-    }
-
-/** TODO: waiting on game listing
-    public List<FavoriteGame> getFavoriteGames() {
-        return favoriteGames;
-    }
-
-    public void setFavoriteGames(List<FavoriteGame> favoriteGames) {
-        this.favoriteGames = favoriteGames;
-    }
-
-    public List<OwnedGame> getOwnedGames() {
-        return ownedGames;
-    }
-
-    public void setOwnedGames(List<OwnedGame> ownedGames) {
-        this.ownedGames = ownedGames;
-    }
- **/
-    public List<Friend> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
-    }
-
-    public List<UserRating> getUserRatings() {
-        return userRatings;
-    }
-
-    public void setUserRatings(List<UserRating> userRatings) {
-        this.userRatings = userRatings;
+    public void setFlagged(boolean flagged) {
+        isFlagged = flagged;
     }
 
     public List<LinkedAccount> getLinkedAccounts() {
@@ -150,6 +106,30 @@ public class User {
         this.linkedAccounts = linkedAccounts;
     }
 
+    public List<UserRating> getUserRatings() {
+        return userRatings;
+    }
+
+    public void setUserRatings(List<UserRating> userRatings) {
+        this.userRatings = userRatings;
+    }
+
+    public List<UserReport> getUserReports() {
+        return userReports;
+    }
+
+    public void setUserReports(List<UserReport> userReports) {
+        this.userReports = userReports;
+    }
+
+    public List<Friend> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<Friend> friends) {
+        this.friends = friends;
+    }
+
     public List<BannedAccount> getBannedAccounts() {
         return bannedAccounts;
     }
@@ -157,21 +137,4 @@ public class User {
     public void setBannedAccounts(List<BannedAccount> bannedAccounts) {
         this.bannedAccounts = bannedAccounts;
     }
-
-    public List<UserReport> getReportsMade() {
-        return reportsMade;
-    }
-
-    public void setReportsMade(List<UserReport> reportsMade) {
-        this.reportsMade = reportsMade;
-    }
-
-    public List<UserReport> getReportsReceived() {
-        return reportsReceived;
-    }
-
-    public void setReportsReceived(List<UserReport> reportsReceived) {
-        this.reportsReceived = reportsReceived;
-    }
-
 }

@@ -1,5 +1,6 @@
 package csc340project.example.springio.User.UserReport;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
@@ -10,15 +11,13 @@ public class UserReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String reportReason;
-
     @ManyToOne
-    @JoinColumn(name = "reporter_id")
-    private User reporter;
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "reported_id")
-    private User reported;
+    private String reportDetails;
+    private java.sql.Date reportDate;
 
     // Getters and Setters
     public Integer getId() {
@@ -29,27 +28,27 @@ public class UserReport {
         this.id = id;
     }
 
-    public String getReportReason() {
-        return reportReason;
+    public User getUser() {
+        return user;
     }
 
-    public void setReportReason(String reportReason) {
-        this.reportReason = reportReason;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public User getReporter() {
-        return reporter;
+    public String getReportDetails() {
+        return reportDetails;
     }
 
-    public void setReporter(User reporter) {
-        this.reporter = reporter;
+    public void setReportDetails(String reportDetails) {
+        this.reportDetails = reportDetails;
     }
 
-    public User getReported() {
-        return reported;
+    public java.sql.Date getReportDate() {
+        return reportDate;
     }
 
-    public void setReported(User reported) {
-        this.reported = reported;
+    public void setReportDate(java.sql.Date reportDate) {
+        this.reportDate = reportDate;
     }
 }

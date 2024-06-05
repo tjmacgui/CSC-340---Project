@@ -1,11 +1,15 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GroupMember.GroupMember;
 import csc340project.example.springio.GroupMember.GroupMemberService;
+import csc340project.example.springio.User.User;
+import csc340project.example.springio.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupListingService {
@@ -14,6 +18,9 @@ public class GroupListingService {
 
     @Autowired
     GroupMemberService groupMemberService;
+
+    @Autowired
+    UserService userService;
 
     public GroupListing getGroupListingById(int id) {
         return groupListingRepository.getGroupListingById(id);
@@ -39,7 +46,7 @@ public class GroupListingService {
 
     public boolean userIsOwner(int userId, int groupId) {
         GroupListing group = groupListingRepository.getGroupListingById(groupId);
-        return group.getOwnerId() == userId;
+        return group.getOwnerId().getUserId() == userId;
     }
 
     public void addNewGroupListing(GroupListing groupListing) {
@@ -59,7 +66,15 @@ public class GroupListingService {
     }
 
     public void addNewMember(int groupId, int userId) {
-        GroupMember groupMember = new GroupMember(userId, false, groupId);
+        Optional<User> userOptional = userService.getUserById(userId);
+        User user;
+        if (userOptional.isPresent())
+            user = userOptional.get();
+        else
+            return;
+        GroupListing group = groupListingRepository.getGroupListingById(groupId);
+
+        GroupMember groupMember = new GroupMember(group, user);
         groupMemberService.addNewMember(groupMember);
     }
 }

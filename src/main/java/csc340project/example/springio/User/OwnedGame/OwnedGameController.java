@@ -1,13 +1,17 @@
 package csc340project.example.springio.User.OwnedGame;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
 /**
 import csc340project.example.springio.GameListing.GameListing;
 import csc340project.example.springio.GameListing.GameListingService;
  **/
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user/ownedGames")
@@ -15,53 +19,28 @@ public class OwnedGameController {
     @Autowired
     private OwnedGameService ownedGameService;
 
-/** TODO: waiting on game listing
-    @Autowired
-    private GameListingService gameListingService;
-
-    @GetMapping
-    public String getAllOwnedGames() {
+    @GetMapping("/")
+    public ResponseEntity<List<OwnedGame>> getAllOwnedGames() {
         List<OwnedGame> ownedGames = ownedGameService.getAllOwnedGames();
-        StringBuilder response = new StringBuilder();
-        for (OwnedGame ownedGame : ownedGames) {
-            response.append(ownedGame.getId()).append(", ")
-                    .append(ownedGame.getGameListing().getGameName()).append(", ")
-                    .append(ownedGame.getUser().getUserId()).append("\n");
-        }
-        return response.toString();
+        return ResponseEntity.ok(ownedGames);
     }
-**/
-    @PostMapping
-    public String createOwnedGame(@RequestBody OwnedGame ownedGame) {
+
+    @PostMapping("/")
+    public ResponseEntity<OwnedGame> createOwnedGame(@RequestBody OwnedGame ownedGame) {
         OwnedGame savedOwnedGame = ownedGameService.saveOwnedGame(ownedGame);
-        return "OwnedGame created with ID: " + savedOwnedGame.getId();
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedOwnedGame);
     }
-/** TODO: waiting on game listing
-
- @PostMapping("/user/{userId}/gameListing/{gameListingId}")
- public String createOwnedGameWithGameListing(
- @PathVariable Integer userId,
- @PathVariable Integer gameListingId,
- @RequestBody OwnedGame ownedGame) {
- Optional<OwnedGame> result = ownedGameService.createOwnedGameWithGameListing(userId, gameListingId, ownedGame);
-
- return result.map(value -> "OwnedGame created with ID: " + value.getId())
- .orElse("User or GameListing not found");
- }
-
 
     @GetMapping("/{id}")
-    public String getOwnedGameById(@PathVariable Integer id) {
+    public ResponseEntity<OwnedGame> getOwnedGameById(@PathVariable Integer id) {
         Optional<OwnedGame> ownedGame = ownedGameService.getOwnedGameById(id);
-        return ownedGame.map(value -> value.getId() + ", " +
-                value.getGameListing().getGameName() + ", " +
-                value.getUser().getUserId()).orElse("OwnedGame not found");
-    }
-**/
-    @DeleteMapping("/{id}")
-    public String deleteOwnedGame(@PathVariable Integer id) {
-        ownedGameService.deleteOwnedGame(id);
-        return "OwnedGame with ID " + id + " deleted";
+        return ownedGame.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOwnedGame(@PathVariable Integer id) {
+        ownedGameService.deleteOwnedGame(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
+

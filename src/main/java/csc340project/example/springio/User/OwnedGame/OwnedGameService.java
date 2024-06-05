@@ -1,11 +1,9 @@
 package csc340project.example.springio.User.OwnedGame;
 
-import csc340project.example.springio.User.User;
+
+import csc340project.example.springio.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-// TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListingRepository;
-import csc340project.example.springio.User.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 // TODO: waiting on game listing import csc340project.example.springio.GameListing.GameListingService;
-import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/user/favoriteGames")
