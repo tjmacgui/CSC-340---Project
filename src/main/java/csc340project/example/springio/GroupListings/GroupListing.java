@@ -1,8 +1,10 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameTags.Tag;
 import csc340project.example.springio.GameTags.TagService;
 import csc340project.example.springio.GroupMember.GroupMember;
+import csc340project.example.springio.User.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +20,17 @@ public class GroupListing {
     private static final int MINMEMBERCOUNT = 2;
     private static final int MAXMEMBERCOUNT = 12;
 
-    @Autowired
-    TagService tagService;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int listingId;
+    private int groupListingId;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private int gameId; //foreign key to game listing
+    private Listing gameId; //foreign key to game listing
 
     @ManyToOne
     @JoinColumn(name = "users")
-    private int ownerId;
+    private User ownerId;
 
     @Nonnull
     private String title; //group title is a nonnull
@@ -48,29 +47,27 @@ public class GroupListing {
     private String description; //group listing description
 
     @DateTimeFormat()
-    @Temporal(TemporalType.DATE)
     private LocalDateTime startDateTime; //group start date and time
 
     @DateTimeFormat()
-    @Temporal(TemporalType.DATE)
     private LocalDateTime endDateTime; //group start date and time
 
     private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group
 
     private int openMemberSpots = maxNumMembers - 1; //defines the number of open spots in a group, default value accounts for owner
 
-    @OneToMany(mappedBy = "GroupListings", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "groupListing", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GroupMember> members;
 
     public GroupListing() {}
 
-    public GroupListing(@Nonnull String title, int listingId, int gameId, int ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
+    public GroupListing(@Nonnull String title, int groupListingId, Listing gameId, User ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
         this.title = title;
-        this.listingId = listingId;
+        this.groupListingId = groupListingId;
         this.gameId = gameId;
         this.ownerId = ownerId;
         this.listingPostDate = listingPostDate;
-        tagInit(gameId);
+        tagInit(this.gameId.getListingId());
         selectedTagsInit(tags);
         this.description = description;
         this.startDateTime = startDateTime;
@@ -85,7 +82,7 @@ public class GroupListing {
      * @param gameId game id that the group belongs to
      */
     private void tagInit(int gameId) {
-        List<Tag> returnedListing = tagService.getAllTagsForGame(gameId);
+        List<Tag> returnedListing = TagService.getAllTagsForGame(gameId);
         if (returnedListing.isEmpty()) {
             throw new EntityNotFoundException("While processing tagInit no existing tags where found relating to the game with an ID of " + gameId);
         } else {
@@ -119,14 +116,6 @@ public class GroupListing {
         this.openMemberSpots++;
     }
 
-    public TagService getTagService() {
-        return tagService;
-    }
-
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
-
     public int getOpenMemberSpots() {
         return openMemberSpots;
     }
@@ -135,12 +124,12 @@ public class GroupListing {
         this.openMemberSpots = openMemberSpots;
     }
 
-    public int getListingId() {
-        return listingId;
+    public int getGroupListingId() {
+        return groupListingId;
     }
 
-    public void setListingId(int listingId) {
-        this.listingId = listingId;
+    public void setGroupListingId(int groupListingId) {
+        this.groupListingId = groupListingId;
     }
 
     @Nonnull
@@ -152,11 +141,11 @@ public class GroupListing {
         this.title = title;
     }
 
-    public int getGameId() {
+    public Listing getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(Listing gameId) {
         this.gameId = gameId;
     }
 
@@ -217,11 +206,11 @@ public class GroupListing {
         this.maxNumMembers = maxNumMembers;
     }
 
-    public int getOwnerId() {
+    public User getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
     }
 }
