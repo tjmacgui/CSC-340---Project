@@ -39,7 +39,7 @@
     <tbody  class="table-group-divider">
     <tr data-th-each="user: ${userList}" class="align-middle">
         <td >
-            <a data-th-href="@{/admin/user/{userId}(id=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>
+            <a data-th-href="@{/admin/user/{userId}(userId=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>
         </td>
 <!--        -->
 
@@ -48,11 +48,11 @@
         <td data-th-text="${#dates.format(user.profileCreationDate, 'MM/dd/yyyy')}"></td>
         <td data-th-text="${user.isFlagged}"></td>
         <td>
-            <a data-th-href="@{/admin/update/{id}(id=${user.userId})}" class="btn btn-secondary">
+            <a data-th-href="@{/admin/user-update/{userId}(id=${user.userId})}" class="btn btn-secondary">
                 Edit User
             </a>
-            <a data-th-href="@{/admin/delete/{id}(userId=${user.userId})}" class="btn btn-danger" >
-                Delete Goal
+            <a data-th-href="@{/admin/user-delete/{userId}(userId=${user.userId})}" class="btn btn-danger" >
+                Delete User
             </a>
         </td>
     </tr>

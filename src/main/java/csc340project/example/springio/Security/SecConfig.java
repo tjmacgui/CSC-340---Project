@@ -20,7 +20,7 @@ public class SecConfig {
     //TODO: set up user/admin login instead of allow all
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")

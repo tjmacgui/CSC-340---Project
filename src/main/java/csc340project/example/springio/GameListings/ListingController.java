@@ -17,10 +17,6 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-//    @GetMapping("/error")
-//    public String errorMessage(){
-//        return "/error";
-//    }
     @GetMapping("/")
     public String getAllListings(Model model) {
         model.addAttribute("listingList",listingService.getAllListings());
