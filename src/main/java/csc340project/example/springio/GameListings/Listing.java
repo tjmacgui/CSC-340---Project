@@ -14,7 +14,7 @@ import java.util.List;
 public class Listing {
     //GameID int PK
     @Id
-    @JsonManagedReference
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int listingId;
 
     //title TINYTEXT not null

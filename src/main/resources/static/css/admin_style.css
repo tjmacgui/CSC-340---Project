@@ -8,6 +8,8 @@ body {
     background-color: var(--primary-color);
 }
 
+
+
 .link-nodec {
     text-decoration: none;
 }
@@ -22,7 +24,7 @@ body {
     margin: auto;
 }
 
-.btn {
+.btn1 {
     background-color: var(--tertiary-color);
     border-style: solid;
     color: var(--secondary-color);

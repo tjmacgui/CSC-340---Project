@@ -3,40 +3,49 @@ package csc340project.example.springio.GameListings;
 //import csc340project.example.Listing.Listing;
 //import csc340project.example.Listing.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/games")
 public class ListingController {
     @Autowired
     private ListingService listingService;
 
+//    @GetMapping("/error")
+//    public String errorMessage(){
+//        return "/error";
+//    }
     @GetMapping("/")
-    public ResponseEntity<List<Listing>> getAllListings() {
-        List<Listing> Listings = listingService.getAllListings();
-        return ResponseEntity.ok(Listings);
+    public String getAllListings(Model model) {
+        model.addAttribute("listingList",listingService.getAllListings());
+        return "/Admin Pages/listing-page";
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Listing> createListing(@RequestBody Listing Listing) {
-        Listing savedListing = listingService.saveListing(Listing);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedListing);
+    @PostMapping("/create")
+    public String createListing(@RequestBody Listing listing) {
+        listingService.saveListing(listing);
+        return "redirect:/games/";
     }
 
+    @GetMapping("/add")
+    public String createPage(){
+        return "/Admin Pages/create-listing";
+    }
     @GetMapping("/{id}")
-    public ResponseEntity<Listing> getListingById(@PathVariable Integer id) {
-        Optional<Listing> listing = listingService.getListingById(id);
-        return listing.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public String getListingById(@PathVariable int id, Model model) {
+        model.addAttribute("listing", listingService.getGameListingById(id));
+        return "/Admin Pages/listing-page";
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteListing(@PathVariable Integer id) {
+    public List<Listing> deleteListing(@PathVariable Integer id) {
         listingService.deleteListing(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return listingService.getAllListings();
     }
 }

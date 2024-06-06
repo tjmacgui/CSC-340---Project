@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <!--    <link rel="icon" type="image/x-icon" href="LOOKING_FOR_GROUP_LOGO.png">-->
+    <!--Proper Scaling-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap Linking-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
+    <!--Styling-->
+    <link href="/css/admin_style.css" rel="stylesheet">
+</head>
+<body>
+<br>
+<a href="/admin/dashboard" class="btn btn-light">Go back</a>
+<br><br>
+
+<div class="container">
+    <h1> User Logs </h1>
+    <br>
+    <table class="table table-bordered">
+    <thead  >
+    <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Creation Date</th>
+        <th>Flags</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody  class="table-group-divider">
+    <tr data-th-each="user: ${userList}" class="align-middle">
+        <td >
+            <a data-th-href="@{/admin/user/{userId}(id=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>
+        </td>
+<!--        -->
+
+        <td data-th-text="${user.username}"></td>
+        <td data-th-text="${user.password}"></td>
+        <td data-th-text="${#dates.format(user.profileCreationDate, 'MM/dd/yyyy')}"></td>
+        <td data-th-text="${user.isFlagged}"></td>
+        <td>
+            <a data-th-href="@{/admin/update/{id}(id=${user.userId})}" class="btn btn-secondary">
+                Edit User
+            </a>
+            <a data-th-href="@{/admin/delete/{id}(userId=${user.userId})}" class="btn btn-danger" >
+                Delete Goal
+            </a>
+        </td>
+    </tr>
+    </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>
