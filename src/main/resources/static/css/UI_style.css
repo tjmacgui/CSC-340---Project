@@ -137,7 +137,7 @@ li.nav-item a.nav-link:hover {
     position: relative;
 }
 
-.group-listing button {
+.group-listing a {
     position: absolute;
     top: 5px;
     right: 5px;
