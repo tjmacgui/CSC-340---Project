@@ -14,7 +14,6 @@ import java.util.List;
 public class Listing {
     //GameID int PK
     @Id
-    @JsonManagedReference
     private int listingId;
 
     //title TINYTEXT not null

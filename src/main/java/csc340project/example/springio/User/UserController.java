@@ -1,37 +1,55 @@
 package csc340project.example.springio.User;
 
+import csc340project.example.springio.GameListings.Listing;
+import csc340project.example.springio.GameListings.ListingRepo;
+import csc340project.example.springio.GameListings.ListingService;
+import csc340project.example.springio.User.OwnedGame.OwnedGame;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import csc340project.example.springio.User.OwnedGame.OwnedGameService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ListingRepo listingRepo;
+
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/login")
+    @GetMapping("/users/login")
     public String loginPage(Model model) {
         return "User Pages/user-account-login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     public String loginUser(@ModelAttribute LoginRequest loginRequest, Model model) {
         boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
         if (isAuthenticated) {
@@ -46,13 +64,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/account")
+    @GetMapping("/users/account")
     public String getUserAccount(Model model) {
-        // Assuming the user is already authenticated and their data is in the session or context
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
+            //finds User from username
             User user = userService.findByUsername(username);
+            //adds user.get to model
             model.addAttribute("username", user.getUsername());
             model.addAttribute("leaderRanking", user.getLeaderRanking());
             model.addAttribute("thumbsUp", user.getThumbsUp());
@@ -60,12 +79,12 @@ public class UserController {
         return "User Pages/user-account";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/users/signup")
     public String signupPage(Model model) {
         return "User Pages/user-account-signup";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/users/signup")
     public String signupUser(@ModelAttribute User user, Model model) {
         if (userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("error", "Username already exists");
@@ -75,21 +94,42 @@ public class UserController {
         return "redirect:/users/account";
     }
 
-    @GetMapping("/profile/{userId}")
-    public ResponseEntity<User> getUserProfile(@PathVariable Integer userId) {
-        Optional<User> user = userService.getUserById(userId);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @GetMapping("/index")
+    public String getIndexPage(Model model) {
+        // get the logged in user from the security context
+        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(loggedInUsername).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // get the owned games for the user
+        List<OwnedGame> ownedGames = user.getOwnedGames();
+
+        // get listing ids from owned games
+        List<Integer> listingIds = ownedGames.stream()
+                .map(OwnedGame::getListing)// get listing obj from each owned game
+                .map(Listing::getListingId)// get listingid from each listing
+                .collect(Collectors.toList()); // list of listingid
+
+        // get listings by ids
+        List<Listing> listings = listingRepo.findAllById(listingIds);
+
+        // add listings to the model
+        model.addAttribute("listings", listings);
+        model.addAttribute("ownedGames", ownedGames);
+
+        return "index";
     }
 
-    @PutMapping("/profile/{userId}")
-    public ResponseEntity<User> updateUserProfile(@PathVariable Integer userId, @RequestBody User userDetails) {
-        User updatedUser = userService.updateUser(userId, userDetails);
-        return ResponseEntity.ok(updatedUser);
+    @GetMapping("/users/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        // gets auth information
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        //if not null user is logged in
+        if (auth != null) {
+            //uses built in logout http: request/response , auth = current user
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/users/login?logout=true";
     }
 
-    @DeleteMapping("/profile/{userId}")
-    public ResponseEntity<Void> deleteUserProfile(@PathVariable Integer userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 }

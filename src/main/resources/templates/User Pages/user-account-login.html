@@ -15,8 +15,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
-        <link href="css/UI_style.css" rel="stylesheet">
-        <link href="css/password_style.css" rel="stylesheet">
+        <link href="/static/css/UI_style.css" rel="stylesheet">
+        <link href="/static/css/password_style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -92,7 +92,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
-                    <button class="btn btn-primary" onclick="window.location.href='user-account-signup.html'" float="left">Sign up</button>
+                    <button class="btn btn-primary" th:href="@{/users/signup}">Signup</a></button>
                 </div>
 
             </div>

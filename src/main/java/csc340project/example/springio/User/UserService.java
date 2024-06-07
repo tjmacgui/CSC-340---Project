@@ -1,6 +1,8 @@
 package csc340project.example.springio.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +60,13 @@ public class UserService {
     public User findByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         return user.orElse(null);
+    }
+
+    public Optional<User> getLoggedInUser() {
+        // This is a simplified way to get the logged-in user. Adjust based on your security setup.
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+        return userRepository.findByUsername(username);
     }
 
     //TODO rankings

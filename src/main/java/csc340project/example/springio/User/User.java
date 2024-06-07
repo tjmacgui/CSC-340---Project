@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import csc340project.example.springio.User.BannedAccount.BannedAccount;
 import csc340project.example.springio.User.Friend.Friend;
 import csc340project.example.springio.User.LinkedAccount.LinkedAccount;
+import csc340project.example.springio.User.OwnedGame.OwnedGame;
 import csc340project.example.springio.User.UserRating.UserRating;
 import csc340project.example.springio.User.UserReport.UserReport;
 import jakarta.persistence.*;
@@ -35,24 +36,22 @@ public class User {
     private int thumbsUp;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<LinkedAccount> linkedAccounts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<UserRating> userRatings;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<UserReport> userReports;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<Friend> friends;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<BannedAccount> bannedAccounts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OwnedGame> ownedGames;
 
     // Getters and Setters
     public Integer getUserId() {
@@ -158,4 +157,13 @@ public class User {
     public void setThumbsUp(int thumbsUp) {
         this.thumbsUp = thumbsUp;
     }
+
+    public List<OwnedGame> getOwnedGames() {
+        return ownedGames;
+    }
+
+    public void setOwnedGames(List<OwnedGame> ownedGames) {
+        this.ownedGames = ownedGames;
+    }
+
 }
