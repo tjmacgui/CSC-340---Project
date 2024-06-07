@@ -107,7 +107,6 @@ public class GroupListingController {
 
     @GetMapping("/{groupId}/leave")
     public String userLeaveGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @PathVariable("groupId") String groupIdString, Model model) {
-        int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
         int groupId = Integer.parseInt(groupIdString);
 
@@ -123,6 +122,19 @@ public class GroupListingController {
             groupListingService.getGroupListingById(groupId).memberLeaves();
             model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.LEAVE));
             return "redirect:" + requestString(userIdString, gameIdString) + "/";
+        }
+    }
+
+    @GetMapping("/create")
+    public String newGroupCreation(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, Model model) {
+        int userId = Integer.parseInt(userIdString);
+        int groupId = Integer.parseInt(groupIdString);
+
+        if (userId == USERNOTLOGGEDIN) {
+            model.addAttribute("redirectionUrl", redirectionUrl);
+            return "user-account-login";
+        } else {
+            return "new-group-listing";
         }
     }
 }

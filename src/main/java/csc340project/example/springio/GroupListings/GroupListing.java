@@ -25,8 +25,8 @@ public class GroupListing {
     private int groupListingId;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Listing gameId; //foreign key to game listing
+    @JoinColumn(name = "listing_id")
+    private Listing listingId; //foreign key to game listing
 
     @ManyToOne
     @JoinColumn(name = "users")
@@ -61,13 +61,13 @@ public class GroupListing {
 
     public GroupListing() {}
 
-    public GroupListing(@Nonnull String title, int groupListingId, Listing gameId, User ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
+    public GroupListing(@Nonnull String title, int groupListingId, Listing listingId, User ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
         this.title = title;
         this.groupListingId = groupListingId;
-        this.gameId = gameId;
+        this.listingId = listingId;
         this.ownerId = ownerId;
         this.listingPostDate = listingPostDate;
-        tagInit(this.gameId.getListingId());
+        tagInit(this.listingId.getListingId());
         selectedTagsInit(tags);
         this.description = description;
         this.startDateTime = startDateTime;
@@ -78,13 +78,13 @@ public class GroupListing {
     }
 
     /**
-     * Initializes availableTags list by querying tags belonging to the provided gameId on Group Listing creation.
-     * @param gameId game id that the group belongs to
+     * Initializes availableTags list by querying tags belonging to the provided listingId on Group Listing creation.
+     * @param listingId game id that the group belongs to
      */
-    private void tagInit(int gameId) {
-        List<Tag> returnedListing = TagService.getAllTagsForGame(gameId);
+    private void tagInit(int listingId) {
+        List<Tag> returnedListing = TagService.getAllTagsForGame(listingId);
         if (returnedListing.isEmpty()) {
-            throw new EntityNotFoundException("While processing tagInit no existing tags where found relating to the game with an ID of " + gameId);
+            throw new EntityNotFoundException("While processing tagInit no existing tags where found relating to the game with an ID of " + listingId);
         } else {
             for (Tag tag : returnedListing) {
                 this.availableTags.add(tag.getTagName());
@@ -141,12 +141,12 @@ public class GroupListing {
         this.title = title;
     }
 
-    public Listing getGameId() {
-        return gameId;
+    public Listing getlistingId() {
+        return listingId;
     }
 
-    public void setGameId(Listing gameId) {
-        this.gameId = gameId;
+    public void setlistingId(Listing listingId) {
+        this.listingId = listingId;
     }
 
     @Nonnull
