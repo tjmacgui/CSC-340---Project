@@ -46,6 +46,10 @@ public class AdminController {
         model.addAttribute("listingList",listingService.getAllListings());
         return "/Admin Pages/listing-page";
     }
+    @GetMapping("/createlisting")
+    public String creationPage(){
+        return "/Admin Pages/create-listing";
+    }
 
     @PostMapping("/createlisting")
     public String createListing(Listing listing) {
@@ -88,4 +92,45 @@ public class AdminController {
         return "redirect:/admin/allUsers";
     }
 
+    //view all flagged users
+    @GetMapping("/users/flagged")
+        public String seeFlaggedUsers(Model model){
+        model.addAttribute("userList", userService.getAllUsers());
+            return "/Admin Pages/flagged-users";
+        }
+
+        // search users
+
+    @GetMapping("/user/search")
+    public String searchUser(@RequestParam("username") String username, Model model) {
+        if("all".equals(username)){
+            model.addAttribute("userList", userService.getAllUsers());
+            return "/Admin Pages/view-users";
+        } else {
+        List<User> userList = userService.findByUsername(username);
+        model.addAttribute("userList", userList);
+        return "/Admin Pages/view-users";
+        }
+    }
+
+    //unflag a user
+    @GetMapping("users/unflag/{userId}")
+    public String unflagUsers(@PathVariable int userId){
+        userService.unflagUser(userId);
+        return "redirect:/admin/users/flagged";
+    }
+
+
+    //messaging
+    @GetMapping ("/messages")
+    public String messagingHub(){
+        return "/Admin Pages/messages";
+
+    }
+
+    //report messages
+    @GetMapping ("/user/reports")
+    public String userReports(){
+        return "/Admin Pages/reports";
+    }
 }

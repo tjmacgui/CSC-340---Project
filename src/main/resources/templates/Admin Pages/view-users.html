@@ -18,9 +18,71 @@
     <link href="/css/admin_style.css" rel="stylesheet">
 </head>
 <body>
-<br>
-<a href="/admin/dashboard" class="btn btn-light">Go back</a>
-<br><br>
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <!--        <a class="navbar-brand" href="#">Offcanvas dark navbar</a>-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="d-flex" role="search" action="/admin/user/search" method="get">
+            <input class="form-control me-2" type="search" name="username" placeholder="Search User" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Users
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="/admin/allUsers">View all Users</a></li>
+                            <li><a class="dropdown-item" href="/admin/users/flagged">View Flagged Users</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Game Listings
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="/admin/listings">View All Games</a></li>
+                            <li><a class="dropdown-item" href="/admin/createlisting">Create New Game Listing</a></li>
+<!--                     <li>-->
+<!--                   <hr class="dropdown-divider">-->
+<!--                      </li>-->
+<!--                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/Admin Pages/messages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Messages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="/admin/messages">Inbox</a></li>
+                            <li><a class="dropdown-item" href="/admin/user/reports">Reports</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Report Messages</a>
+                    </li>
+                </ul>
+                <!--                <form class="d-flex mt-3" role="search">-->
+                <!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+                <!--                    <button class="btn btn-success" type="submit">Search</button>-->
+                <!--                </form>-->
+            </div>
+        </div>
+    </div>
+</nav>
+
+<br><br><br>
 
 <div class="container">
     <h1> User Logs </h1>
@@ -41,14 +103,12 @@
         <td >
             <a data-th-href="@{/admin/user/{userId}(userId=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>
         </td>
-<!--        -->
-
         <td data-th-text="${user.username}"></td>
         <td data-th-text="${user.password}"></td>
         <td data-th-text="${#dates.format(user.profileCreationDate, 'MM/dd/yyyy')}"></td>
         <td data-th-text="${user.isFlagged}"></td>
         <td>
-            <a data-th-href="@{/admin/user-update/{userId}(id=${user.userId})}" class="btn btn-secondary">
+            <a data-th-href="@{/admin/user-update/{userId}(userId=${user.userId})}" class="btn btn-secondary">
                 Edit User
             </a>
             <a data-th-href="@{/admin/user-delete/{userId}(userId=${user.userId})}" class="btn btn-danger" >

@@ -27,4 +27,19 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+
+    //admin searching
+    public List<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    //admin unflagging user
+    public void unflagUser(int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+            User user = optionalUser.get();
+            user.setFlagged(false);
+            userRepository.save(user);
+
+    }
+
 }

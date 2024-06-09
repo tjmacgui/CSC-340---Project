@@ -17,31 +17,4 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-    @GetMapping("/")
-    public String getAllListings(Model model) {
-        model.addAttribute("listingList",listingService.getAllListings());
-        return "/Admin Pages/listing-page";
-    }
-
-    @PostMapping("/create")
-    public String createListing(@RequestBody Listing listing) {
-        listingService.saveListing(listing);
-        return "redirect:/games/";
-    }
-
-    @GetMapping("/add")
-    public String createPage(){
-        return "/Admin Pages/create-listing";
-    }
-    @GetMapping("/{id}")
-    public String getListingById(@PathVariable int id, Model model) {
-        model.addAttribute("listing", listingService.getGameListingById(id));
-        return "/Admin Pages/listing-page";
-    }
-
-    @DeleteMapping("/{id}")
-    public List<Listing> deleteListing(@PathVariable Integer id) {
-        listingService.deleteListing(id);
-        return listingService.getAllListings();
-    }
 }
