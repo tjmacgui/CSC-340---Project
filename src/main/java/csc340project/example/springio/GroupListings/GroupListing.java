@@ -8,35 +8,36 @@ import csc340project.example.springio.User.User;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "group_listings")
+@Table(name = "Group Listings")
 public class GroupListing {
     private static final int MINMEMBERCOUNT = 2;
     private static final int MAXMEMBERCOUNT = 12;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "group_listing_id")
     private int groupListingId;
 
     @ManyToOne
-    @JoinColumn(name = "listing_id")
+    @JoinColumn(name = "game_id")
     private Listing gameId; //foreign key to game listing
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users")
     private User ownerId;
 
     @Nonnull
     private String title; //group title is a nonnull
 
     @Nonnull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date listingPostDate; //date when listing was posted
 
     private List<String> availableTags; //list of available tags to this group listing based on it's game
@@ -45,11 +46,13 @@ public class GroupListing {
 
     private String description; //group listing description
 
+    @DateTimeFormat()
     private LocalDateTime startDateTime; //group start date and time
 
+    @DateTimeFormat()
     private LocalDateTime endDateTime; //group start date and time
 
-    private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group, default val is the min number of allowed members
+    private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group
 
     private int openMemberSpots = maxNumMembers - 1; //defines the number of open spots in a group, default value accounts for owner
 
@@ -58,13 +61,13 @@ public class GroupListing {
 
     public GroupListing() {}
 
-    public GroupListing(String title, int groupListingId, Listing gameId, User ownerId, Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
+    public GroupListing(@Nonnull String title, int groupListingId, Listing gameId, User ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
         this.title = title;
         this.groupListingId = groupListingId;
         this.gameId = gameId;
         this.ownerId = ownerId;
         this.listingPostDate = listingPostDate;
-        tagInit(gameId.getListingId());
+        tagInit(this.gameId.getListingId());
         selectedTagsInit(tags);
         this.description = description;
         this.startDateTime = startDateTime;
@@ -105,16 +108,10 @@ public class GroupListing {
         }
     }
 
-    /**
-     * Decrements open member spots and should be called everytime a new member joins the group.
-     */
     public void memberJoin() {
         this.openMemberSpots--;
     }
 
-    /**
-     * Increments open member spots and should be called everytime a member leaves the group.
-     */
     public void memberLeaves() {
         this.openMemberSpots++;
     }
