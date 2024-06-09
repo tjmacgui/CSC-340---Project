@@ -1,13 +1,11 @@
 package csc340project.example.springio.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -20,8 +18,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            user.setRoles(Arrays.asList("ROLE_USER")); // Default role
+        }
         userRepository.save(user);
     }
 
@@ -31,21 +33,6 @@ public class UserService {
 
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
-    }
-
-    public User updateUser(Integer id, User userDetails) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setUsername(userDetails.getUsername());
-                    user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-                    user.setProfileImageId(userDetails.getProfileImageId());
-                    user.setProfileCreationDate(userDetails.getProfileCreationDate());
-                    user.setFlagged(userDetails.isFlagged());
-                    return userRepository.save(user);
-                }).orElseGet(() -> {
-                    userDetails.setUserId(id);
-                    return userRepository.save(userDetails);
-                });
     }
 
     public boolean authenticate(String username, String password) {
@@ -61,14 +48,5 @@ public class UserService {
         Optional<User> user = userRepository.findByUsername(username);
         return user.orElse(null);
     }
-
-    public Optional<User> getLoggedInUser() {
-        // This is a simplified way to get the logged-in user. Adjust based on your security setup.
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
-        return userRepository.findByUsername(username);
-    }
-
-    //TODO rankings
 
 }

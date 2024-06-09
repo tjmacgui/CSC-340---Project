@@ -1,6 +1,5 @@
 package csc340project.example.springio.User;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import csc340project.example.springio.User.BannedAccount.BannedAccount;
 import csc340project.example.springio.User.Friend.Friend;
 import csc340project.example.springio.User.LinkedAccount.LinkedAccount;
@@ -23,6 +22,11 @@ public class User {
 
     @Column(length = 60, nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private List<String> roles;
 
     private Integer profileImageId;
 
@@ -165,5 +169,14 @@ public class User {
     public void setOwnedGames(List<OwnedGame> ownedGames) {
         this.ownedGames = ownedGames;
     }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
 
 }

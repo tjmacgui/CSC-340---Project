@@ -1,6 +1,5 @@
 package csc340project.example.springio.Security;
 
-import csc340project.example.springio.User.User;
 import csc340project.example.springio.User.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
@@ -27,9 +25,12 @@ public class SecConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                //.csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/users/**").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/users/signup").permitAll()
+                                .requestMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

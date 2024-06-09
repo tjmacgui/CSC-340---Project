@@ -2,12 +2,10 @@ package csc340project.example.springio.User;
 
 import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameListings.ListingRepo;
-import csc340project.example.springio.GameListings.ListingService;
 import csc340project.example.springio.User.OwnedGame.OwnedGame;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,14 +14,8 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import csc340project.example.springio.User.OwnedGame.OwnedGameService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -81,6 +73,7 @@ public class UserController {
 
     @GetMapping("/users/signup")
     public String signupPage(Model model) {
+        model.addAttribute("user", new User());
         return "User Pages/user-account-signup";
     }
 

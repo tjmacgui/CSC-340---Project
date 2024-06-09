@@ -63,37 +63,37 @@
             <br>
 
             <div class="signup-form-container">
-                <form th:action="@{/users/signup}" method="post">
+                <form th:action="@{/users/signup}" th:object="${user}" method="post">
                     <div class="login-form-input">
                         <label for="username" class="form-label">Username</label>
-                        <input id="username" class="form-control form-control-lg" type="text" maxlength="15" name="username">
+                        <input id="username" class="form-control form-control-lg" type="text" maxlength="15" th:field="*{username}">
                         <div class="form-text">Username may be up to 15 characters long, and cannot contain special characters, spaces, or emojis.</div>
                     </div>
                     <div class="login-form-input">
                         <label for="password" class="form-label">Password</label>
-                        <input id="password" class="form-control form-control-lg" type="password" maxlength="20" name="password">
+                        <input id="password" class="form-control form-control-lg" type="password" maxlength="20" th:field="*{password}">
                         <div class="form-text">Passwords must be 7-20 characters long, and cannot contain special characters, spaces, or emojis.</div>
                     </div>
                     <div class="pfp-selection">
                         <div class="pfp-option">
                             <label for="pfp1"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp1" name="profileImageId" value="1">
+                            <input type="radio" id="pfp1" th:field="*{profileImageId}" value="1">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp2"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp2" name="profileImageId" value="2">
+                            <input type="radio" id="pfp2" th:field="*{profileImageId}" value="2">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp3"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp3" name="profileImageId" value="3">
+                            <input type="radio" id="pfp3" th:field="*{profileImageId}" value="3">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp4"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp4" name="profileImageId" value="4">
+                            <input type="radio" id="pfp4" th:field="*{profileImageId}" value="4">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp5"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp5" name="profileImageId" value="5">
+                            <input type="radio" id="pfp5" th:field="*{profileImageId}" value="5">
                         </div>
                     </div>
                     <div th:if="${error}">
@@ -102,8 +102,8 @@
                     <button type="submit" class="btn btn-primary">Signup</button>
                 </form>
                 <a class="signin text-center" href="./user-account-login.html">Have an account? Sign In</a>
-
             </div>
+
 
         </main>
     </body>
