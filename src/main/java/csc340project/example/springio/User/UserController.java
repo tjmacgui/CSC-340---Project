@@ -125,4 +125,17 @@ public class UserController {
         return "redirect:/users/login?logout=true";
     }
 
+    @PostMapping("/users/steamlink")
+    public String linkSteamAccount(@RequestParam("steamUsername") String steamUsername, Model model) throws Exception {
+        //get the logged in user from the security context
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        //loads all steam games in the background with async. otherwise the page just hangs.
+        userService.linkSteamAccount(username, steamUsername);
+
+        model.addAttribute("message", "Games will be imported in the background.");
+        return "User Pages/user-account"; // Redirect to user account page
+    }
+
 }

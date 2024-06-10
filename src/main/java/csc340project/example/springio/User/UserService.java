@@ -1,6 +1,8 @@
 package csc340project.example.springio.User;
 
+import csc340project.example.springio.SteamAPI.SteamAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private SteamAPI steamAPI;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -47,6 +51,11 @@ public class UserService {
     public User findByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         return user.orElse(null);
+    }
+
+    @Async
+    public void linkSteamAccount(String username, String steamUsername) throws Exception {
+        steamAPI.linkSteamAccount(username, steamUsername);
     }
 
 }
