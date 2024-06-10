@@ -29,7 +29,7 @@ public class GroupListing {
     private Listing listingId; //foreign key to game listing
 
     @ManyToOne
-    @JoinColumn(name = "users")
+    @JoinColumn(name = "user_id")
     private User ownerId;
 
     @Nonnull
@@ -46,11 +46,11 @@ public class GroupListing {
 
     private String description; //group listing description
 
-    @DateTimeFormat()
-    private LocalDateTime startDateTime; //group start date and time
+    // @DateTimeFormat()
+    // private LocalDateTime startDateTime; //group start date and time
 
-    @DateTimeFormat()
-    private LocalDateTime endDateTime; //group start date and time
+    // @DateTimeFormat()
+    // private LocalDateTime endDateTime; //group start date and time
 
     private int maxNumMembers = MINMEMBERCOUNT; //defines the maximum number of members in a group
 
@@ -61,19 +61,19 @@ public class GroupListing {
 
     public GroupListing() {}
 
-    public GroupListing(@Nonnull String title, int groupListingId, Listing listingId, User ownerId, @Nonnull Date listingPostDate, String description, LocalDateTime startDateTime, int maxNumMembers, LocalDateTime endDateTime, String tags) {
+    public GroupListing(@Nonnull String title, int groupListingId, Listing listingId, User ownerId, @Nonnull Date listingPostDate, String description, int maxNumMembers, List<String> tags) {
         this.title = title;
         this.groupListingId = groupListingId;
         this.listingId = listingId;
         this.ownerId = ownerId;
         this.listingPostDate = listingPostDate;
         tagInit(this.listingId.getListingId());
-        selectedTagsInit(tags);
+        this.tags = tags;
         this.description = description;
-        this.startDateTime = startDateTime;
+        //this.startDateTime = startDateTime;
         if (maxNumMembers >= MINMEMBERCOUNT && maxNumMembers <= MAXMEMBERCOUNT)
             this.maxNumMembers = maxNumMembers;
-        this.endDateTime = endDateTime;
+        //this.endDateTime = endDateTime;
         this.openMemberSpots = maxNumMembers - 1; //accounts for group lister as a member
     }
 
@@ -82,7 +82,7 @@ public class GroupListing {
      * @param listingId game id that the group belongs to
      */
     private void tagInit(int listingId) {
-        List<Tag> returnedListing = TagService.getAllTagsForGame(listingId);
+        List<Tag> returnedListing = GroupListingService.getTagListForGame(listingId);
         if (returnedListing.isEmpty()) {
             throw new EntityNotFoundException("While processing tagInit no existing tags where found relating to the game with an ID of " + listingId);
         } else {
@@ -182,21 +182,21 @@ public class GroupListing {
         this.description = description;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
+    // public LocalDateTime getStartDateTime() {
+    //     return startDateTime;
+    // }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
+    // public void setStartDateTime(LocalDateTime startDateTime) {
+    //     this.startDateTime = startDateTime;
+    // }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
-    }
+    // public LocalDateTime getEndDateTime() {
+    //     return endDateTime;
+    // }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
-    }
+    // public void setEndDateTime(LocalDateTime endDateTime) {
+    //     this.endDateTime = endDateTime;
+    // }
 
     public int getMaxNumMembers() {
         return maxNumMembers;

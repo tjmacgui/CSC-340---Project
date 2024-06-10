@@ -16,7 +16,7 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-    @GetMapping("/")
+    @GetMapping({"/", "/view"})
     public ResponseEntity<List<Listing>> getAllListings() {
         List<Listing> Listings = listingService.getAllListings();
         return ResponseEntity.ok(Listings);

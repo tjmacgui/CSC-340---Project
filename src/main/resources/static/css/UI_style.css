@@ -39,6 +39,12 @@ button {
     border-radius: 4px;
 }
 
+ul.no-bullets {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 /*Navbar*/
 
 header {
@@ -187,6 +193,13 @@ li.nav-item a.nav-link:hover {
 }
 
 .group-listings-header-buttons-container button {
+    background-color: transparent;
+    border: none;
+    color: var(--tertiary-color);
+    font-size: 40px;
+}
+
+.group-listings-header-buttons-container a {
     background-color: transparent;
     border: none;
     color: var(--tertiary-color);
@@ -406,4 +419,10 @@ a.signin {
   padding: 6px 12px;
 
   border-top: none;
+}
+
+/*New Group Listing*/
+.new-group-form {
+    border-radius: 10px;
+    background-color: var(--tertiary-color);
 }

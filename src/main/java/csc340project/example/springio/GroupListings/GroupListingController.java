@@ -1,6 +1,8 @@
 package csc340project.example.springio.GroupListings;
 
+import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameListings.ListingService;
+import csc340project.example.springio.GameTags.TagService;
 import csc340project.example.springio.GroupMember.GroupMemberService;
 import csc340project.example.springio.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
-/*todo: import GameListingService when complete*/
 
 @Controller
 @RequestMapping("/user/{userId}/game/{gameId}/groups")
@@ -28,6 +28,9 @@ public class GroupListingController {
     UserService userService;
 
     @Autowired
+    TagService tagService;
+
+    @Autowired
     GroupMemberService groupMemberService;
 
     private String requestString(String userId, String gameId) {
@@ -37,7 +40,13 @@ public class GroupListingController {
     @GetMapping({"/", "", "/view"})
     public String viewAllGroupListings(@PathVariable("gameId") String gameIdString, Model model) {
         int gameId = Integer.parseInt(gameIdString);
-        model.addAttribute("game", gameListingService.getGameListingById(gameId));
+
+        Listing game = gameListingService.getGameListingById(gameId);
+        if (game.getGameImageURL() == null) {
+            game.setGameImageURL("https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Video-Game-Controller-Icon-D-Edit.svg/2048px-Video-Game-Controller-Icon-D-Edit.svg.png");
+        }
+
+        model.addAttribute("gameListing", game);
         model.addAttribute("groupListings", groupListingService.getAllGroupListingsForGame(gameId));
         return "group-listings";
     }
@@ -84,24 +93,11 @@ public class GroupListingController {
         int userId = Integer.parseInt(userIdString);
         int groupId = Integer.parseInt(groupIdString);
 
-        groupListing.setGameId(gameListingService.getGameListingById(gameId));
+        groupListing.setlistingId(gameListingService.getGameListingById(gameId));
         groupListing.setOwnerId(userService.getUserById(userId).get());
         groupListing.setGroupListingId(groupId);
 
         model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.UPDATE));
-        return "redirect:" + requestString(userIdString, gameIdString) + "/";
-    }
-
-    @PostMapping("/create")
-    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @RequestBody GroupListing groupListing, Model model) {
-        int gameId = Integer.parseInt(gameIdString);
-        int userId = Integer.parseInt(userIdString);
-
-        groupListing.setGameId(gameListingService.getGameListingById(gameId));
-        groupListing.setOwnerId(userService.getUserById(userId).get());
-        groupListing.setListingPostDate(new Date());
-
-        model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.CREATE));
         return "redirect:" + requestString(userIdString, gameIdString) + "/";
     }
 
@@ -128,13 +124,32 @@ public class GroupListingController {
     @GetMapping("/create")
     public String newGroupCreation(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, Model model) {
         int userId = Integer.parseInt(userIdString);
-        int groupId = Integer.parseInt(groupIdString);
+        int gameId = Integer.parseInt(gameIdString);
+        String redirectionUrl = requestString(userIdString, gameIdString) + "/create";
 
         if (userId == USERNOTLOGGEDIN) {
             model.addAttribute("redirectionUrl", redirectionUrl);
             return "user-account-login";
         } else {
+            if (tagService != null)
+                model.addAttribute("tagList", tagService.getAllTagsForGame(gameId));
+            else
+                model.addAttribute("tagList", null);
+            model.addAttribute("groupListing", new GroupListing());
             return "new-group-listing";
         }
+    }
+
+    @PostMapping("/create/new")
+    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @RequestBody GroupListing groupListing, Model model) {
+        int gameId = Integer.parseInt(gameIdString);
+        int userId = Integer.parseInt(userIdString);
+
+        groupListing.setlistingId(gameListingService.getGameListingById(gameId));
+        groupListing.setOwnerId(userService.getUserById(userId).get());
+        groupListing.setListingPostDate(new Date());
+
+        model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.CREATE));
+        return "redirect:" + requestString(userIdString, gameIdString) + "/";
     }
 }

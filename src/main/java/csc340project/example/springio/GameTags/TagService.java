@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public class TagService {
     @Autowired
-    private static TagRepository tagRepository;
+    private TagRepository tagRepository;
 
-    public static List<Tag> getAllTagsForGame(int gameId) {
+    public List<Tag> getAllTagsForGame(int gameId) {
         return tagRepository.getAllTagsForGame(gameId);
     }
 }
