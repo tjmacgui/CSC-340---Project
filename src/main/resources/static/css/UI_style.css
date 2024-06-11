@@ -432,6 +432,6 @@ a.signin {
     display: block;
     background: var(--secondary-color);
     position: absolute;
-    margin: auto;
+    left: 15px;
     bottom: 15px;
 }
