@@ -5,7 +5,7 @@ import csc340project.example.springio.User.User;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Group Members")
+@Table(name = "group_members")
 public class GroupMember {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +20,8 @@ public class GroupMember {
     private User userId;             //foreign key referencing the group members user ID
 
     private boolean isReady = false;        //signifies if member is ready or not
+
+    public GroupMember() {}
 
     public GroupMember(GroupListing groupListing, User userId) {
         this.groupListing = groupListing;
