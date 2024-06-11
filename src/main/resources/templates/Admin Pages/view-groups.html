@@ -62,10 +62,10 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="/admin/listings">View All Games</a></li>
                             <li><a class="dropdown-item" href="/admin/createlisting">Create New Game Listing</a></li>
-<!--                     <li>-->
-<!--                   <hr class="dropdown-divider">-->
-<!--                      </li>-->
-<!--                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+                            <!--                     <li>-->
+                            <!--                   <hr class="dropdown-divider">-->
+                            <!--                      </li>-->
+                            <!--                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -94,38 +94,39 @@
 <br><br><br>
 
 <div class="container">
-    <h1> User Logs </h1>
+    <h1> Groups </h1>
     <br>
     <table class="table table-bordered">
-    <thead  >
-    <tr>
-        <th>User ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Creation Date</th>
-        <th>Flags</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody  class="table-group-divider">
-    <tr data-th-each="user: ${userList}" class="align-middle">
-        <td >
-            <a data-th-href="@{/admin/user/{userId}(userId=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>
-        </td>
-        <td data-th-text="${user.username}"></td>
-        <td data-th-text="${user.password}"></td>
-        <td data-th-text="${#dates.format(user.profileCreationDate, 'MM/dd/yyyy')}"></td>
-        <td data-th-text="${user.isFlagged}"></td>
-        <td>
-            <a data-th-href="@{/admin/user-update/{userId}(userId=${user.userId})}" class="btn btn-secondary">
-                Edit User
-            </a>
-            <a data-th-href="@{/admin/user-delete/{userId}(userId=${user.userId})}" class="btn btn-danger" >
-                Delete User
-            </a>
-        </td>
-    </tr>
-    </tbody>
+        <thead  >
+        <tr>
+            <th>id</th>
+            <th>game id</th>
+            <th>title</th>
+            <th>listingPostDate</th>
+            <th>Creator</th>
+
+        </tr>
+        </thead>
+        <tbody  class="table-group-divider">
+        <tr data-th-each="GroupListing: ${groupList}" class="align-middle">
+<!--            <td >-->
+<!--                <a data-th-href="@{/admin/user/{userId}(userId=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>-->
+<!--            </td>-->
+            <td data-th-text="${GroupListing.groupListingId}"></td>
+            <td data-th-text="${GroupListing.gameId}"></td>
+            <td data-th-text="${GroupListing.title}"></td>
+            <td data-th-text="${#dates.format(GroupListing.listingPostDate, 'MM/dd/yyyy')}"></td>
+            <td data-th-text="${GroupListing.ownerId}"></td>
+<!--            <td>-->
+<!--                <a data-th-href="@{/admin/user-update/{userId}(userId=${user.userId})}" class="btn btn-secondary">-->
+<!--                    Edit User-->
+<!--                </a>-->
+<!--                <a data-th-href="@{/admin/user-delete/{userId}(userId=${user.userId})}" class="btn btn-danger" >-->
+<!--                    Delete User-->
+<!--                </a>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
 
     </table>
 </div>

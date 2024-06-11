@@ -2,6 +2,7 @@ package csc340project.example.springio.admin;
 
 import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameListings.ListingService;
+import csc340project.example.springio.GroupListings.GroupListingService;
 import csc340project.example.springio.User.User;
 import csc340project.example.springio.User.UserReport.UserReportService;
 import csc340project.example.springio.User.UserService;
@@ -24,6 +25,8 @@ public class AdminController {
     private ListingService listingService;
     @Autowired
     private UserReportService userReportService;
+    @Autowired
+    private GroupListingService groupListingService;
 
     //overall homepage
     @GetMapping("/home")
@@ -133,6 +136,13 @@ public class AdminController {
     public String flagUsers(@PathVariable int userId) {
         userService.flagUser(userId);
         return "redirect:/admin/user/"+userId;
+    }
+
+    //groups
+    @GetMapping("/groups")
+    public String getAllGroups(Model model) {
+        model.addAttribute("groupList", groupListingService.getAllGroups());
+        return "/Admin Pages/view-groups";
     }
 
 
