@@ -24,10 +24,6 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="d-flex" role="search" action="/admin/user/search" method="get">
-            <input class="form-control me-2" type="search" name="username" placeholder="Search User" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
         <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
@@ -81,9 +77,66 @@
         </div>
     </div>
 </nav>
-<br><br>
-<h1> in development :P </h1>
-<br><a href="/admin/dashboard" class="btn btn-light">Go back</a><br>
+<br><br><br>
+<h1> User Logs </h1>
+
+<br><a href="/admin/allUsers" class="btn btn-light">Go back</a><br>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Image -->
+        <div class="col-md-3 text-right">
+            <img src="/default-user.png" alt="Profile Image" class="img-fluid">
+        </div>
+
+        <!-- User Info -->
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li style="float: left; margin-right: 20px;">
+                    <span th:utext="'<strong>Username:</strong> ' + ${user.username}"></span>
+                </li>
+                <li>
+                    <span th:utext="'<strong>Password:</strong> ' + ${user.password}"></span>
+                </li>
+            </ul>
+            <ul class="list-unstyled">
+                <li><strong>Bio:</strong> Bio would go here.</li>
+            </ul>
+            <br> <br> <br><br>
+            <ul class="list-unstyled">
+                <li>
+                    <div class="card " style="width: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Status</h5>
+                            <p th:if="${user.isFlagged}" style="color: yellow; font-weight: bold;">FLAGGED</p>
+                            <p th:unless="${user.isFlagged}" style="color: green; font-weight: bold;">ACTIVE</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Status and Reports -->
+    <div class="row mt-3">
+        <!-- Games -->
+        <div class="col-md-6" style="float: left;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> Owned Games</h5>
+                    <p class="card-text">Games list or information goes here.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Status -->
+        <div class="col-md-6">
+           <div class="card"><!-- mt-3-->
+                <div class="card-body">
+                    <h5 class="card-title">Reports</h5>
+                    <p class="card-text">Reports information goes here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

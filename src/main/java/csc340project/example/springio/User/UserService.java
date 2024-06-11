@@ -27,6 +27,7 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public User userId (Integer userId){return userRepository.findById(userId).orElse(null);}
 
     //admin searching
     public List<User> findByUsername(String username) {
