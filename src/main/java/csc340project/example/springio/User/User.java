@@ -1,9 +1,9 @@
 package csc340project.example.springio.User;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import csc340project.example.springio.User.BannedAccount.BannedAccount;
 import csc340project.example.springio.User.Friend.Friend;
 import csc340project.example.springio.User.LinkedAccount.LinkedAccount;
+import csc340project.example.springio.User.OwnedGame.OwnedGame;
 import csc340project.example.springio.User.UserRating.UserRating;
 import csc340project.example.springio.User.UserReport.UserReport;
 import jakarta.persistence.*;
@@ -20,8 +20,13 @@ public class User {
     @Column(length = 15, nullable = false)
     private String username;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private List<String> roles;
 
     private Integer profileImageId;
 
@@ -29,25 +34,28 @@ public class User {
 
     private boolean isFlagged;
 
+    //TODO: leader ranking and thumbs up
+
+    private int leaderRanking;
+    private int thumbsUp;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<LinkedAccount> linkedAccounts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<UserRating> userRatings;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<UserReport> userReports;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<Friend> friends;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<BannedAccount> bannedAccounts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OwnedGame> ownedGames;
 
     // Getters and Setters
     public Integer getUserId() {
@@ -137,4 +145,38 @@ public class User {
     public void setBannedAccounts(List<BannedAccount> bannedAccounts) {
         this.bannedAccounts = bannedAccounts;
     }
+
+    public int getLeaderRanking() {
+        return leaderRanking;
+    }
+
+    public void setLeaderRanking(int leaderRanking) {
+        this.leaderRanking = leaderRanking;
+    }
+
+    public int getThumbsUp() {
+        return thumbsUp;
+    }
+
+    public void setThumbsUp(int thumbsUp) {
+        this.thumbsUp = thumbsUp;
+    }
+
+    public List<OwnedGame> getOwnedGames() {
+        return ownedGames;
+    }
+
+    public void setOwnedGames(List<OwnedGame> ownedGames) {
+        this.ownedGames = ownedGames;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+
 }

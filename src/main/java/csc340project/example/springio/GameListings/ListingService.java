@@ -33,4 +33,9 @@ public class ListingService {
     public void deleteListing(Integer id){
         listingRepo.deleteById(id);
     }
-}
+
+    public List<Listing> getListingsByIds(List<Integer> ids) {
+        return listingRepo.findAllById(ids);
+    }
+    }
+

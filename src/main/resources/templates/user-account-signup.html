@@ -15,7 +15,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
+<<<<<<< HEAD:src/main/resources/templates/User Pages/user-account-signup.html
+        <link href="/static/css/UI_style.css" rel="stylesheet">
+=======
         <link href="../static/css/UI_style.css" rel="stylesheet">
+>>>>>>> 99e06af6e1e1c1bd261198bf9cce781eb829dc4f:src/main/resources/templates/user-account-signup.html
     </head>
 
     <body>
@@ -62,44 +66,54 @@
             <h1 class="text-center">Account Signup</h1>
             <br>
 
-            <div class="login-form-container">
-                <form>
+            <div class="signup-form-container">
+                <form th:action="@{/users/signup}" th:object="${user}" method="post">
                     <div class="login-form-input">
-                        <label for="userLoginUsername" class="form-label">Username</label>
-                        <input id="userLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">
+                        <label for="username" class="form-label">Username</label>
+                        <input id="username" class="form-control form-control-lg" type="text" maxlength="15" th:field="*{username}">
                         <div class="form-text">Username may be up to 15 characters long, and cannot contain special characters, spaces, or emojis.</div>
                     </div>
                     <div class="login-form-input">
-                        <label for="userLoginPassword" class="form-label">Password</label>
-                        <input id="userLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">
+                        <label for="password" class="form-label">Password</label>
+                        <input id="password" class="form-control form-control-lg" type="password" maxlength="20" th:field="*{password}">
                         <div class="form-text">Passwords must be 7-20 characters long, and cannot contain special characters, spaces, or emojis.</div>
                     </div>
                     <div class="pfp-selection">
                         <div class="pfp-option">
                             <label for="pfp1"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp1" name="pfp" valu="pfp1">
+                            <input type="radio" id="pfp1" th:field="*{profileImageId}" value="1">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp2"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp2" name="pfp" valu="pfp2">
+                            <input type="radio" id="pfp2" th:field="*{profileImageId}" value="2">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp3"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp3" name="pfp" valu="pfp3">
+                            <input type="radio" id="pfp3" th:field="*{profileImageId}" value="3">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp4"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp4" name="pfp" valu="pfp4">
+                            <input type="radio" id="pfp4" th:field="*{profileImageId}" value="4">
                         </div>
                         <div class="pfp-option">
                             <label for="pfp5"><img src="./../IMG/user-regular.svg" class="pfp"></label>
-                            <input type="radio" id="pfp5" name="pfp" valu="pfp5">
+                            <input type="radio" id="pfp5" th:field="*{profileImageId}" value="5">
                         </div>
                     </div>
+                    <div th:if="${error}">
+                        <p th:text="${error}" style="color: red;"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Signup</button>
                 </form>
+<<<<<<< HEAD:src/main/resources/templates/User Pages/user-account-signup.html
+                <a class="signin text-center" href="./user-account-login.html">Have an account? Sign In</a>
+=======
                 <button type="submit" class="btn btn-primary" href="./user-account-login.html">Signup</button>
                 <a class="signin text-center" href="user-account-login.html">Have an account? Sign In</a>
+>>>>>>> 99e06af6e1e1c1bd261198bf9cce781eb829dc4f:src/main/resources/templates/user-account-signup.html
             </div>
+
+
         </main>
     </body>
 </html>
