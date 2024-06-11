@@ -88,7 +88,7 @@ public class GroupListingService {
      * @param listingId id of the game listing
      * @return list of available tags for the inserted game
      */
-    public static List<Tag> getTagListForGame(int listingId) {
-        return tagService.getAllTagsForGame(listingId);
+    public static List<String> getTagListForGame(int listingId) {
+        return tagService.getAllTagNamesForGame(listingId);
     }
 }

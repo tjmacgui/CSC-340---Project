@@ -2,6 +2,7 @@ package csc340project.example.springio.GroupListings;
 
 import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameListings.ListingService;
+import csc340project.example.springio.GameTags.Tag;
 import csc340project.example.springio.GameTags.TagService;
 import csc340project.example.springio.GroupMember.GroupMemberService;
 import csc340project.example.springio.User.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user/{userId}/game/{gameId}/groups")
@@ -34,10 +36,10 @@ public class GroupListingController {
     GroupMemberService groupMemberService;
 
     private String requestString(String userId, String gameId) {
-        return "/user/" + userId + "/game/" + gameId + "groups";
+        return "/user/" + userId + "/game/" + gameId + "/groups";
     }
 
-    @GetMapping({"/", "", "/view"})
+    @GetMapping("/")
     public String viewAllGroupListings(@PathVariable("gameId") String gameIdString, Model model) {
         int gameId = Integer.parseInt(gameIdString);
 
@@ -48,6 +50,7 @@ public class GroupListingController {
 
         model.addAttribute("gameListing", game);
         model.addAttribute("groupListings", groupListingService.getAllGroupListingsForGame(gameId));
+
         return "group-listings";
     }
 
@@ -74,14 +77,15 @@ public class GroupListingController {
             GroupListing selectedGroupListing = groupListingService.getGroupListingById(groupId);
             if (selectedGroupListing.getOpenMemberSpots() == 0) {
                 model.addAttribute("errorMessage", new GroupListingError(GroupListingError.ErrorType.JOIN_FULL));   //the group is full
-                return requestString(userIdString, gameIdString) + "/";
+                return "redirect:" + requestString(userIdString, gameIdString) + "/";
             } else if (groupListingService.userInGroup(userId, groupId)) {
                 model.addAttribute("errorMessage", new GroupListingError(GroupListingError.ErrorType.JOIN_INGROUP));    //user is already in the group
-                return requestString(userIdString, gameIdString) + "/";
+                return "redirect:" + requestString(userIdString, gameIdString) + "/";
             } else {
                 model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.JOIN));    //user successfully joins the group
                 groupListingService.addNewMember(groupId, userId);
                 selectedGroupListing.memberJoin();
+                groupListingService.updateGroupListing(selectedGroupListing);
                 return "redirect:" + requestString(userIdString, gameIdString) + "/";
             }
         }
@@ -115,13 +119,15 @@ public class GroupListingController {
             return "redirect:" + requestString(userIdString, gameIdString) + "/";
         } else {
             groupListingService.removeMember(userId, groupId);
-            groupListingService.getGroupListingById(groupId).memberLeaves();
+            GroupListing groupListing = groupListingService.getGroupListingById(groupId);
+            groupListing.memberLeaves();
+            groupListingService.updateGroupListing(groupListing);
             model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.LEAVE));
             return "redirect:" + requestString(userIdString, gameIdString) + "/";
         }
     }
 
-    @GetMapping("/create")
+    @GetMapping({"/create", "/create/"})
     public String newGroupCreation(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, Model model) {
         int userId = Integer.parseInt(userIdString);
         int gameId = Integer.parseInt(gameIdString);
@@ -136,20 +142,24 @@ public class GroupListingController {
             else
                 model.addAttribute("tagList", null);
             model.addAttribute("groupListing", new GroupListing());
+            model.addAttribute("tag", new Tag());
             return "new-group-listing";
         }
     }
 
-    @PostMapping("/create/new")
-    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, @RequestBody GroupListing groupListing, Model model) {
+    @PostMapping(value = {"/create/new", "/new"}, consumes = "application/x-www-form-urlencoded")
+    public String createNewGroup(@PathVariable("userId") String userIdString, @PathVariable("gameId") String gameIdString, GroupListing groupListing, Model model) {
         int gameId = Integer.parseInt(gameIdString);
         int userId = Integer.parseInt(userIdString);
 
         groupListing.setlistingId(gameListingService.getGameListingById(gameId));
         groupListing.setOwnerId(userService.getUserById(userId).get());
         groupListing.setListingPostDate(new Date());
+        groupListing.setOpenMemberSpots(groupListing.getMaxNumMembers() - 1);
+        groupListingService.addNewGroupListing(groupListing);
 
         model.addAttribute("successMessage", new GroupListingSuccess(GroupListingSuccess.SuccessType.CREATE));
         return "redirect:" + requestString(userIdString, gameIdString) + "/";
     }
+
 }

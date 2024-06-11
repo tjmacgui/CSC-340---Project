@@ -425,4 +425,13 @@ a.signin {
 .new-group-form {
     border-radius: 10px;
     background-color: var(--tertiary-color);
+    overflow: hidden;
+}
+
+.new-tag-button {
+    display: block;
+    background: var(--secondary-color);
+    position: absolute;
+    margin: auto;
+    bottom: 15px;
 }

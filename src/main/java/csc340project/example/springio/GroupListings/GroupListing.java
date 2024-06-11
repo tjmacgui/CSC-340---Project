@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Group Listings")
+@Table(name = "group_listings")
 public class GroupListing {
     private static final int MINMEMBERCOUNT = 2;
     private static final int MAXMEMBERCOUNT = 12;
@@ -74,7 +74,7 @@ public class GroupListing {
         if (maxNumMembers >= MINMEMBERCOUNT && maxNumMembers <= MAXMEMBERCOUNT)
             this.maxNumMembers = maxNumMembers;
         //this.endDateTime = endDateTime;
-        this.openMemberSpots = maxNumMembers - 1; //accounts for group lister as a member
+        this.openMemberSpots = this.maxNumMembers - 1; //accounts for group lister as a member
     }
 
     /**
@@ -82,12 +82,12 @@ public class GroupListing {
      * @param listingId game id that the group belongs to
      */
     private void tagInit(int listingId) {
-        List<Tag> returnedListing = GroupListingService.getTagListForGame(listingId);
+        List<String> returnedListing = GroupListingService.getTagListForGame(listingId);
         if (returnedListing.isEmpty()) {
             throw new EntityNotFoundException("While processing tagInit no existing tags where found relating to the game with an ID of " + listingId);
         } else {
-            for (Tag tag : returnedListing) {
-                this.availableTags.add(tag.getTagName());
+            for (String tag : returnedListing) {
+                this.availableTags.add(tag);
             }
         }
     }
