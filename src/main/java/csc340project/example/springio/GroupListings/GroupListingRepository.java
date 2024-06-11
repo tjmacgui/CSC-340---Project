@@ -13,8 +13,8 @@ public interface GroupListingRepository extends JpaRepository<GroupListing, Inte
     public GroupListing getGroupListingById(int id);
 
     @Query(value = "select * from group_listings where listing_id = ?1", nativeQuery = true)
-    public List<GroupListing> getAllGroupListingsForGame(int gameId);
+    public List<GroupListing> getAllGroupListingsForGame(int listing_id);
 
     @Query(value = "select * from group_listings where listing_id = ?1 and title like ?2%", nativeQuery = true)
-    public List<GroupListing> getAllGroupListingsFromTitle(int gameId, String title);
+    public List<GroupListing> getAllGroupListingsFromTitle(int listing_id, String title);
 }
