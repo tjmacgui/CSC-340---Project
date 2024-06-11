@@ -4,7 +4,7 @@
 <!--CSC340 Group Project-->
 <!--Code written by and belongs to: Ethan Moore, Collin Rodgers, and Thomas Macguire-->
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>EZLFG - Universal LFG App</title>
         <link rel="icon" type="image/x-icon" href="./IMG/EZLFG-logo.ico" />
@@ -16,11 +16,7 @@
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
         <!--Styling-->
-<<<<<<< HEAD
-        <link href="/static/css/UI_style.css" rel="stylesheet">
-=======
-        <link href="./../static/css/UI_style.css" rel="stylesheet">
->>>>>>> 99e06af6e1e1c1bd261198bf9cce781eb829dc4f
+        <link th:href="@{/css/UI_style.css}" rel="stylesheet">
     </head>
 
     <body>
