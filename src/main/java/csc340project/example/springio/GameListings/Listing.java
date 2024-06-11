@@ -17,6 +17,9 @@ public class Listing {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private int listingId;
 
+    //steam id
+    private int steamId;
+
     //title TINYTEXT not null
     @Nonnull
     private String title;
@@ -29,7 +32,6 @@ public class Listing {
     //Thumbnail IMAGE
     private String gameImageURL;
 
-
     //Genre VARCHAR
     private String genre;
 
@@ -38,7 +40,8 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(int listingId, String genre, String gameImageURL, Date releaseDate, String title) {
+    public Listing(int steamId, int listingId, String genre, String gameImageURL, Date releaseDate, String title) {
+        this.steamId = steamId;
         this.listingId = listingId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
@@ -52,6 +55,14 @@ public class Listing {
 
     public void setListingId(int listingId) {
         this.listingId = listingId;
+    }
+
+    public int getSteamId() {
+        return steamId;
+    }
+
+    public void setSteamId(int steamId) {
+        this.steamId = steamId;
     }
 
     public String getGenre() {
