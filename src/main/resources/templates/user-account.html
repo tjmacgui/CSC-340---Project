@@ -87,6 +87,18 @@
                 <div class="account-info">Leader Ranking: 100%</div>
                 <div class="account-info"><i class="fa-regular fa-thumbs-up"></i></div>
                 -->
+                <form th:action="@{/users/steamlink}" method="post">
+                    <div>
+                        <label for="steamUsername">Steam Username:</label>
+                        <input type="text" id="steamUsername" name="steamUsername" required />
+                    </div>
+                    <button type="submit">Link Steam Account</button>
+                </form>
+
+                <!-- Display messages if available -->
+                <div th:if="${message}" th:text="${message}"></div>
+                <div th:if="${error}" th:text="${error}"></div>
+            </div>
             </div>
         </main>
     </body>

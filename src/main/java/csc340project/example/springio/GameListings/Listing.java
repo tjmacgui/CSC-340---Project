@@ -14,20 +14,22 @@ import java.util.List;
 public class Listing {
     //GameID int PK
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int listingId;
+
+    //steam id
+    private int steamId;
 
     //title TINYTEXT not null
     @Nonnull
     private String title;
 
     //ReleaseDate Date
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date ReleaseDate;
 
     //Thumbnail IMAGE
     private String gameImageURL;
-
 
     //Genre VARCHAR
     private String genre;
@@ -37,12 +39,13 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(int listingId, String genre, String gameImageURL, Date releaseDate, String title) {
-        this.listingId = listingId;
+    public Listing(int steamId, String genre, String gameImageURL, Date releaseDate, String title) {
+        this.steamId = steamId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
         ReleaseDate = releaseDate;
         this.title = title;
+
     }
 
     public int getListingId() {
@@ -51,6 +54,14 @@ public class Listing {
 
     public void setListingId(int listingId) {
         this.listingId = listingId;
+    }
+
+    public int getSteamId() {
+        return steamId;
+    }
+
+    public void setSteamId(int steamId) {
+        this.steamId = steamId;
     }
 
     public String getGenre() {
