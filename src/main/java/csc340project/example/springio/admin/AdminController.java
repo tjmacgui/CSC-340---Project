@@ -117,7 +117,7 @@ public class AdminController {
             model.addAttribute("userList", userService.getAllUsers());
             return "/Admin Pages/view-users";
         } else {
-            List<User> userList = userService.findByUsername(username);
+            User userList = userService.findByUsername(username);
             model.addAttribute("userList", userList);
             return "/Admin Pages/view-users";
         }
@@ -127,7 +127,12 @@ public class AdminController {
     @GetMapping("users/unflag/{userId}")
     public String unflagUsers(@PathVariable int userId) {
         userService.unflagUser(userId);
-        return "redirect:/admin/users/flagged";
+        return "redirect:/admin/user/"+userId;
+    }
+    @GetMapping("users/flag/{userId}")
+    public String flagUsers(@PathVariable int userId) {
+        userService.flagUser(userId);
+        return "redirect:/admin/user/"+userId;
     }
 
 

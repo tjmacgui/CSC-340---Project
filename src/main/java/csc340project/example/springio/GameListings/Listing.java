@@ -39,10 +39,10 @@ public class Listing {
     private List<Tag> tags;
     public Listing() {
     }
-
-    public Listing(int steamId, int listingId, String genre, String gameImageURL, Date releaseDate, String title) {
+//    int listingId,
+    public Listing(int steamId, String genre, String gameImageURL, Date releaseDate, String title) {
         this.steamId = steamId;
-        this.listingId = listingId;
+//        this.listingId = listingId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
         ReleaseDate = releaseDate;
