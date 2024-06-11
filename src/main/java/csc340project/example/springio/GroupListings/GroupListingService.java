@@ -1,6 +1,8 @@
 package csc340project.example.springio.GroupListings;
 
 import csc340project.example.springio.GameListings.Listing;
+import csc340project.example.springio.GameTags.Tag;
+import csc340project.example.springio.GameTags.TagService;
 import csc340project.example.springio.GroupMember.GroupMember;
 import csc340project.example.springio.GroupMember.GroupMemberService;
 import csc340project.example.springio.User.User;
@@ -21,6 +23,9 @@ public class GroupListingService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    static TagService tagService;
 
     public GroupListing getGroupListingById(int id) {
         return groupListingRepository.getGroupListingById(id);
@@ -76,5 +81,14 @@ public class GroupListingService {
 
         GroupMember groupMember = new GroupMember(group, user);
         groupMemberService.addNewMember(groupMember);
+    }
+
+    /**
+     * Helper method linking tag service for tag initialization in group listing objects.
+     * @param listingId id of the game listing
+     * @return list of available tags for the inserted game
+     */
+    public static List<String> getTagListForGame(int listingId) {
+        return tagService.getAllTagNamesForGame(listingId);
     }
 }

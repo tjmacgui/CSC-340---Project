@@ -8,9 +8,19 @@ import java.util.List;
 @Service
 public class TagService {
     @Autowired
-    private static TagRepository tagRepository;
+    private TagRepository tagRepository;
 
-    public static List<Tag> getAllTagsForGame(int gameId) {
+    public List<Tag> getAllTagsForGame(int gameId) {
         return tagRepository.getAllTagsForGame(gameId);
+    }
+
+    public List<String> getAllTagNamesForGame(int gameId) {
+        List<Tag> tagList = getAllTagsForGame(gameId);
+        List<String> tagNamesList = tagList.stream().map(tag -> tag.tagName).toList();
+        return tagNamesList;
+    }
+
+    public void saveNewTag(Tag tag) {
+        tagRepository.save(tag);
     }
 }
