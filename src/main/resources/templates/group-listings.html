@@ -20,7 +20,6 @@
         <!--Styling-->
 
         <link th:href="@{/css/UI_style.css}" rel="stylesheet">
-
     </head>
 
     <body>
@@ -58,7 +57,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="sortGroups" class="btn btn-primary">Sort</button>
+                    <button type="submit" form="sortGroups" class="btn btn-primary" disabled>Sort</button>
                 </div>
             </div>
             </div>
@@ -98,7 +97,7 @@
                             <a class="nav-link" th:href="@{./../../../../friends}">Friends</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{./../../../../account}">Your Account</a>
+                            <a class="nav-link" th:href="@{/users/account}">Your Account</a>
 
                         </li>
                     </ul>

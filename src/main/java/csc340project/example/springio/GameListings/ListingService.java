@@ -22,6 +22,7 @@ public class ListingService {
     public List<Listing> getAllListings() {
         return listingRepo.findAll();
     }
+    
     public Listing saveListing(Listing listing) {
         return listingRepo.save(listing);
     }
