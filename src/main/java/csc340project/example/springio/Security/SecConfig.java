@@ -30,7 +30,9 @@ public class SecConfig {
                         authorizeRequests
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/users/signup").permitAll()
+                                .requestMatchers("/users/login").permitAll()
                                 .requestMatchers("/users/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
