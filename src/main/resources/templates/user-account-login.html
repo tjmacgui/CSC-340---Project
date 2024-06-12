@@ -15,8 +15,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
-        <link href="/static/css/UI_style.css" rel="stylesheet">
-        <link href="/static/css/password_style.css" rel="stylesheet">
+
+        <link th:href="@{/css/UI_style.css}" rel="stylesheet">
+        <link th:href="@{css/password_style.css}" rel="stylesheet">
+
     </head>
 
     <body>
@@ -35,7 +37,9 @@
                         </div>
                     </form>
                     <div class="topnavbar-logo">
-                        <a class="navbar-brand" href="../index.html">
+
+                        <a class="navbar-brand" href="index.html">
+
                             <img src="LOOKING_FOR_GROUP_LOGO.png" alt="EZLFG" width="110px" height="70px">
                         </a>
                     </div>
@@ -43,7 +47,9 @@
                 <div id="navMenu" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
+
+                            <a class="nav-link" href="index.html">Home</a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="user-groups.html">Your Groups</a>
@@ -108,10 +114,8 @@
 <!--                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">-->
 <!--                    </div>-->
 <!--                </form>-->
-                <form action="/admin/login" method="get">
-                <button type="submit" class="btn btn-primary">
-                    SysAdmin Login
-                </button></form>
+
+
             </div>
 
         </div>
@@ -134,4 +138,6 @@
             document.getElementById("defaultOpen").click();
         </script>
     </body>
+
 </html>
+

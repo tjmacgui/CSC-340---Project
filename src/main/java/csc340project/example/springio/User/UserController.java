@@ -2,6 +2,8 @@ package csc340project.example.springio.User;
 
 import csc340project.example.springio.GameListings.Listing;
 import csc340project.example.springio.GameListings.ListingRepo;
+import csc340project.example.springio.User.Friend.Friend;
+import csc340project.example.springio.User.Friend.FriendService;
 import csc340project.example.springio.User.OwnedGame.OwnedGame;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,7 +40,7 @@ public class UserController {
 
     @GetMapping("/users/login")
     public String loginPage(Model model) {
-        return "User Pages/user-account-login";
+        return "user-account-login";
     }
 
     @PostMapping("/users/login")
@@ -49,10 +51,10 @@ public class UserController {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("leaderRanking", user.getLeaderRanking());
             model.addAttribute("thumbsUp", user.getThumbsUp());
-            return "User Pages/user-account";
+            return "user-account";
         } else {
             model.addAttribute("error", "Invalid credentials");
-            return "User Pages/user-account-login";
+            return "user-account-login";
         }
     }
 
@@ -68,26 +70,26 @@ public class UserController {
             model.addAttribute("leaderRanking", user.getLeaderRanking());
             model.addAttribute("thumbsUp", user.getThumbsUp());
         }
-        return "User Pages/user-account";
+        return "user-account";
     }
 
     @GetMapping("/users/signup")
     public String signupPage(Model model) {
         model.addAttribute("user", new User());
-        return "User Pages/user-account-signup";
+        return "user-account-signup";
     }
 
     @PostMapping("/users/signup")
     public String signupUser(@ModelAttribute User user, Model model) {
         if (userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("error", "Username already exists");
-            return "User Pages/user-account-signup";
+            return "user-account-signup";
         }
         userService.saveUser(user);
         return "redirect:/users/account";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/users/ownedgames")
     public String getIndexPage(Model model) {
         // get the logged in user from the security context
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -98,18 +100,19 @@ public class UserController {
 
         // get listing ids from owned games
         List<Integer> listingIds = ownedGames.stream()
-                .map(OwnedGame::getListing)// get listing obj from each owned game
-                .map(Listing::getListingId)// get listingid from each listing
+                .map(OwnedGame::getListing) // get listing obj from each owned game
+                .map(Listing::getListingId) // get listingid from each listing
                 .collect(Collectors.toList()); // list of listingid
 
         // get listings by ids
         List<Listing> listings = listingRepo.findAllById(listingIds);
 
-        // add listings to the model
+        // add listings and userId to the model
         model.addAttribute("listings", listings);
         model.addAttribute("ownedGames", ownedGames);
+        model.addAttribute("userId", user.getUserId());
 
-        return "index";
+        return "ownedgames";
     }
 
     @GetMapping("/users/logout")
@@ -135,7 +138,8 @@ public class UserController {
         userService.linkSteamAccount(username, steamUsername);
 
         model.addAttribute("message", "Games will be imported in the background.");
-        return "User Pages/user-account"; // Redirect to user account page
+        return "user-account"; // Redirect to user account page
     }
+
 
 }

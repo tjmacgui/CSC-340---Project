@@ -34,7 +34,9 @@
                         </div>
                     </form>
                     <div class="topnavbar-logo">
-                        <a class="navbar-brand" href="./../index.html">
+
+                        <a class="navbar-brand" href="index.html">
+
                             <img src="./../IMG/EZLFG-logo.png" alt="EZLFG" width="110px" height="70px">
                         </a>
                     </div>
@@ -45,19 +47,21 @@
                             <a class="nav-link" th:href="@{/index}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./user-groups.html">Your Groups</a>
+
+                            <a class="nav-link" th:href="@{/users/ownedgames}">Owned Games</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./user-friends.html">Friends</a>
+                            <a class="nav-link" href="user-groups.html">Your Groups</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./user-account.html">Your Account</a>
+                            <a class="nav-link" href="user-friends.html">Friends</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="user-account.html">Your Account</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/users/logout}">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
+
                         </li>
                     </ul>
                 </div>
@@ -97,4 +101,6 @@
             </div>
         </main>
     </body>
+
 </html>
+
