@@ -96,10 +96,11 @@
         <thead  >
         <tr>
             <th>id</th>
-            <th>game id</th>
+<!--            <th>game id</th>-->
             <th>title</th>
             <th>listingPostDate</th>
-            <th>Creator</th>
+<!--            <th>Creator</th>-->
+            <th>Action</th>
 
         </tr>
         </thead>
@@ -109,18 +110,15 @@
 <!--                <a data-th-href="@{/admin/user/{userId}(userId=${user.userId})}" data-th-text="${user.userId}" class="btn btn-dark"></a>-->
 <!--            </td>-->
             <td data-th-text="${GroupListing.groupListingId}"></td>
-            <td data-th-text="${GroupListing.gameId}"></td>
+<!--            <td data-th-text="${GroupListing.listingId}"></td>-->
             <td data-th-text="${GroupListing.title}"></td>
             <td data-th-text="${#dates.format(GroupListing.listingPostDate, 'MM/dd/yyyy')}"></td>
-            <td data-th-text="${GroupListing.ownerId}"></td>
-<!--            <td>-->
-<!--                <a data-th-href="@{/admin/user-update/{userId}(userId=${user.userId})}" class="btn btn-secondary">-->
-<!--                    Edit User-->
-<!--                </a>-->
-<!--                <a data-th-href="@{/admin/user-delete/{userId}(userId=${user.userId})}" class="btn btn-danger" >-->
-<!--                    Delete User-->
-<!--                </a>-->
-<!--            </td>-->
+<!--            <td data-th-text="${GroupListing.ownerId}"></td>-->
+            <td>
+                <a data-th-href="@{/admin/group/delete/{id}(id=${GroupListing.groupListingId})}" class="btn btn-danger" >
+                    Delete Group
+                </a>
+            </td>
         </tr>
         </tbody>
 

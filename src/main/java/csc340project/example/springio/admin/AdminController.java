@@ -105,7 +105,7 @@ public class AdminController {
 
     //delete user account
     @GetMapping("/user-delete/{id}")
-    public String deleteGoalById(@PathVariable int id) {
+    public String deleteUserById(@PathVariable int id) {
         userService.deleteUser(id);
         return "redirect:/admin/allUsers";
     }
@@ -148,6 +148,12 @@ public class AdminController {
     public String getAllGroups(Model model) {
         model.addAttribute("groupList", groupListingService.getAllGroups());
         return "view-groups";
+    }
+
+    @GetMapping("/group/delete/{id}")
+    public String deleteGoalById(@PathVariable int id) {
+        groupListingService.removeGroupListingById(id);
+        return "redirect:/admin/groups";
     }
 
 
