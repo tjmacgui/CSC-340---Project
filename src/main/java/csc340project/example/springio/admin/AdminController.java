@@ -36,31 +36,31 @@ public class AdminController {
 
     @GetMapping("/userLogin")
     public String userLogin() {
-        return "/User Pages/user-account-login";
+        return "user-account-login";
     }
 
     //admin login page
     @GetMapping("/login")
     public String loginpage() {
-        return "/Admin Pages/admin-login";
+        return "admin-login";
     }
 
     //admin dashboard
     @GetMapping("/dashboard")
     public String dashbaord() {
-        return "/Admin Pages/admin-interface";
+        return "admin-interface";
     }
 
     // listing stuff
     @GetMapping("/listings")
     public String getAllListings(Model model) {
         model.addAttribute("listingList", listingService.getAllListings());
-        return "/Admin Pages/listing-page";
+        return "listing-page";
     }
 
     @GetMapping("/createlisting")
     public String creationPage() {
-        return "/Admin Pages/create-listing";
+        return "create-listing";
     }
 
     @PostMapping("/createlisting")
@@ -72,7 +72,7 @@ public class AdminController {
     @GetMapping("/listings/delete/{id}")
     public String deleteListing(@PathVariable Integer id) {
         listingService.deleteListing(id);
-        return "/Admin Pages/listing-page";
+        return "listing-page";
     }
 
     //user stuff
@@ -81,7 +81,7 @@ public class AdminController {
     @GetMapping("/allUsers")
     public String viewUsers(Model model) {
         model.addAttribute("userList", userService.getAllUsers());
-        return ("/Admin Pages/view-users");
+        return ("view-users");
     }
 
     //troubleshooting user profile
@@ -93,14 +93,14 @@ public class AdminController {
     @GetMapping("/user-update/{id}")
     public String updateUsers(@PathVariable int id, Model model) {
         model.addAttribute("user", userService.userId(id));
-        return "/Admin Pages/update-user";
+        return "update-user";
     }
 
     //view specific user profule
     @GetMapping("/user/{userId}")
     public String getUser(@PathVariable int userId, Model model) {
         model.addAttribute("user", userService.userId(userId));
-        return "/Admin Pages/user-profile";
+        return "user-profile";
     }
 
     //delete user account
@@ -114,7 +114,7 @@ public class AdminController {
     @GetMapping("/users/flagged")
     public String seeFlaggedUsers(Model model) {
         model.addAttribute("userList", userService.getAllUsers());
-        return "/Admin Pages/flagged-users";
+        return "flagged-users";
     }
 
     // search users
@@ -123,11 +123,11 @@ public class AdminController {
     public String searchUser(@RequestParam("username") String username, Model model) {
         if ("all".equals(username)) {
             model.addAttribute("userList", userService.getAllUsers());
-            return "/Admin Pages/view-users";
+            return "view-users";
         } else {
             User userList = userService.findByUsername(username);
             model.addAttribute("userList", userList);
-            return "/Admin Pages/view-users";
+            return "view-users";
         }
     }
 
@@ -147,14 +147,14 @@ public class AdminController {
     @GetMapping("/groups")
     public String getAllGroups(Model model) {
         model.addAttribute("groupList", groupListingService.getAllGroups());
-        return "/Admin Pages/view-groups";
+        return "view-groups";
     }
 
 
     //messaging
     @GetMapping("/messages")
     public String messagingHub() {
-        return "/Admin Pages/messages";
+        return "messages";
 
     }
 
@@ -162,6 +162,6 @@ public class AdminController {
     @GetMapping("/user/reports")
     public String userReports(Model model) {
         model.addAttribute("userReportList", userReportService.getAllUserReports());
-        return "/Admin Pages/user-reports";
+        return "user-reports";
     }
 }
