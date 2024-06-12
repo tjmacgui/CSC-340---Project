@@ -26,6 +26,9 @@ public class ListingService {
     public Listing saveListing(Listing listing) {
         return listingRepo.save(listing);
     }
+    public Optional<Listing> getListingsById(Integer id) {
+        return listingRepo.findById(id);
+    }
 
     public void deleteListing(Integer id){
         listingRepo.deleteById(id);
