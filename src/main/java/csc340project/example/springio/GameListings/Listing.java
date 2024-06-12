@@ -14,7 +14,7 @@ import java.util.List;
 public class Listing {
     //GameID int PK
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int listingId;
 
     //steam id
@@ -25,6 +25,7 @@ public class Listing {
     private String title;
 
     //ReleaseDate Date
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date ReleaseDate;
 
@@ -38,14 +39,14 @@ public class Listing {
     private List<Tag> tags;
     public Listing() {
     }
-
+//    int listingId,
     public Listing(int steamId, String genre, String gameImageURL, Date releaseDate, String title) {
         this.steamId = steamId;
+//        this.listingId = listingId;
         this.genre = genre;
         this.gameImageURL = gameImageURL;
         ReleaseDate = releaseDate;
         this.title = title;
-
     }
 
     public int getListingId() {

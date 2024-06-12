@@ -39,6 +39,9 @@ public class GroupListingService {
         return groupListingRepository.getAllGroupListingsFromTitle(gameId, searchInput);
     }
 
+    //admin
+    public List<GroupListing> getAllGroups(){
+        return groupListingRepository.findAll();}
     /**
      * Checks if user exists in the given group listing.
      * @param userId Specified user ID

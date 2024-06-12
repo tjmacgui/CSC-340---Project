@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-
-<!--EZLFG-->
-<!--CSC340 Group Project-->
-<!--Code written by and belongs to: Ethan Moore, Collin Rodgers, and Thomas Macguire-->
-
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -29,10 +24,6 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="d-flex" role="search" action="/admin/user/search" method="get">
-            <input class="form-control me-2" type="search" name="username" placeholder="Search User" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
         <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
@@ -48,14 +39,6 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="/admin/allUsers">View all Users</a></li>
                             <li><a class="dropdown-item" href="/admin/users/flagged">View Flagged Users</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Groups
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="/admin/groups">View all Groups</a></li>
                         </ul>
                     </li>
 
@@ -94,80 +77,83 @@
         </div>
     </div>
 </nav>
+<br><br><br>
+<h1> User Logs </h1>
 
-<br> <br> <br> <br>
+<br><a href="/admin/allUsers" class="btn btn-light">Go back</a><br>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Image -->
+        <div class="col-md-3 text-right">
+            <img src="/default-user.png" alt="Profile Image" class="img-fluid">
+        </div>
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4 mb-4">
-            <div class="card card-custom-size">
-                <img src="/default-user.png" class="card-img-top img-fluid" alt="n/a">
-                <div class="card-body d-flex align-items-end">
-                    <h5 class="card-title w-100 text-center">
-                        <a href="/admin/allUsers" role="button" class="btn btn-warning w-100">
-                            View Users
-                        </a>
-                    </h5>
+        <!-- User Info -->
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li style="margin-right: 20px;">
+                    <span th:utext="'<strong>Username:</strong> ' + ${user.username}"></span>
+                </li>
+<!--                <li>-->
+<!--                    <span th:utext="'<strong>Password:</strong> ' + ${user.password}"></span>-->
+<!--                </li>-->
+            </ul>
+            <ul class="list-unstyled">
+                <li><strong>Bio:</strong> Bio would go here.</li>
+            </ul>
+            <br> <br> <br><br>
+            <ul class="list-unstyled">
+                <li>
+                    <div class="card " style="width: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Status</h5>
+                            <p th:if="${user.isFlagged}" style="color: yellow; font-weight: bold;">FLAGGED</p>
+                            <p th:unless="${user.isFlagged}" style="color: green; font-weight: bold;">ACTIVE</p>
+                        </div>
+                    </div>
+                    <a data-th-href="@{/admin/users/flag/{userId}(userId=${user.userId})}" class="btn btn-secondary">
+                        flag User
+                    </a>
+                    <a data-th-href="@{/admin/users/unflag/{userId}(userId=${user.userId})}" class="btn btn-secondary">
+                        unflag User
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Status and Reports -->
+    <div class="row mt-3">
+        <!-- Games -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Owned Games</h5>
+                    <p class="card-text">Games list or information goes here.</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card card-custom-size">
-                <img src="/game-collage.jpg" class="card-img-top img-fluid" alt="n/a">
-                <div class="card-body d-flex align-items-end">
-                    <h5 class="card-title w-100 text-center" >
-                        <a href="/admin/listings" role="button" class="btn btn-warning w-100">
-                            View Listings
-                        </a>
-                    </h5>
+
+        <!-- Reports -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reports</h5>
+                    <p class="card-text">Reports information goes here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Groups -->
+        <div class="col-md-6 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Groups</h5>
+                    <p class="card-text">Groups + info</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 </body>
-=======
-<html lang="en">
-    <head>
-        <title>Admin Interface</title>
-        <link rel="icon" type="image/x-icon" href="LOOKING_FOR_GROUP_LOGO.png">
-        <!--Proper Scaling-->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--Bootstrap Linking-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <!--Font Awesome-->
-        <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
-        <!--Styling-->
-        <link href="/css/admin_style.css" rel="stylesheet">
-    </head>
-
-    <body>
-        <br>
-        <h2 class="text-center">Users</h2>
-        <br>
-        <div class="query-interface-container">
-            <div class="query-interface-controls">
-                <form class="query-form">
-                    <input id="userQuery" class="query-input" type="text" placeholder="User SQL Query">
-                    <button class="query-btn" type="submit">Submit</button>
-                </form>
-            </div>
-            <div class="query-interface-output">Query output goes here</div>
-        </div>
-
-        <br>
-        <h2 class="text-center">Listings</h2>
-        <br>
-        <div class="query-interface-container">
-            <div class="query-interface-controls">
-                <form class="query-form">
-                    <input id="userQuery" class="query-input" type="text" placeholder="Listing SQL Query">
-                    <button class="query-btn" type="submit">Submit</button>
-                </form>
-            </div>
-            <div class="query-interface-output">Query output goes here</div>
-        </div>
-    </body>
 </html>

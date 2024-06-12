@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class ListingController {
     @Autowired
     private ListingService listingService;
+
 
     @GetMapping({"/", "/view"})
     public ResponseEntity<List<Listing>> getAllListings() {
@@ -37,4 +39,5 @@ public class ListingController {
         listingService.deleteListing(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }

@@ -39,6 +39,32 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public User userId (Integer userId){return userRepository.findById(userId).orElse(null);}
+
+    //admin searching
+//    public List<User> findByUsername(String username) {
+//        return userRepository.findByUsername(username);
+//    }
+
+    //admin unflagging user
+    public void unflagUser(int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+            User user = optionalUser.get();
+            user.setFlagged(false);
+            userRepository.save(user);
+
+    }
+    public void flagUser(int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.get();
+        user.setFlagged(true);
+        userRepository.save(user);
+
+    }
+    public void saveEdit(User user){
+        userRepository.save(user);
+    }
+
     public boolean authenticate(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
