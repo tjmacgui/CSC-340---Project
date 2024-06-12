@@ -85,9 +85,14 @@ public class AdminController {
     }
 
     //troubleshooting user profile
+    @PostMapping("/user-update")
+    public String updateUser(User user){
+        userService.saveEdit(user);
+        return "redirect:/admin/allUsers";
+    }
     @GetMapping("/user-update/{id}")
-    public String updateUser(@PathVariable int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+    public String updateUsers(@PathVariable int id, Model model) {
+        model.addAttribute("user", userService.userId(id));
         return "/Admin Pages/update-user";
     }
 

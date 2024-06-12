@@ -61,6 +61,9 @@ public class UserService {
         userRepository.save(user);
 
     }
+    public void saveEdit(User user){
+        userRepository.save(user);
+    }
 
     public boolean authenticate(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);

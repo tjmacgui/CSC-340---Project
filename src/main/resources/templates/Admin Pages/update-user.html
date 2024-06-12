@@ -91,4 +91,32 @@
     <p>profile image here</p>
     <p>table here for editting user </p>
 </div>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>username</th>
+        <th>password</th>
+<!--        <th>details</th>-->
+<!--        <th>Target Date</th>-->
+<!--        <th>status</th>-->
+    </tr>
+    </thead>
+    <thead>
+    <tr>
+        <form action="/admin/user-update" method="post">
+            <td><input type="text" id="username" name="username" data-th-value="${user.username}" style="width: 70px;" /></td>
+            <td><input type="text" id="password" name="password" data-th-value="${user.password}" style="width: 100px;"/></td>
+<!--            <td><input type="text" id="details" name="details" data-th-value="${goal.details}"/></td>-->
+<!--            <td><input type="date" id="date" name="targetDate" data-th-value="${goal.targetDate}"/></td>-->
+<!--            <td><select id="status" name="status">-->
+<!--                <option value="pending">pending</option>-->
+<!--                <option value="in-progress">in-progress</option>-->
+<!--                <option value="done">done</option>-->
+<!--                <option value="cancelled">cancelled</option>-->
+<!--            </select></td>-->
+            <td><button type="submit" class="btn btn-success">Save</button></td>
+        </form>
+    </tr>
+    </thead>
+</table>
 </html>
