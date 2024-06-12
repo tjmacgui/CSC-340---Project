@@ -30,7 +30,7 @@ public class ListingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Listing> getListingById(@PathVariable Integer id) {
-        Optional<Listing> listing = listingService.getListingById(id);
+        Optional<Listing> listing = listingService.getListingsById(id);
         return listing.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
