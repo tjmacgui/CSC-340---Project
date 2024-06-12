@@ -4,10 +4,10 @@
 <!--CSC340 Group Project-->
 <!--Code written by and belongs to: Ethan Moore, Collin Rodgers, and Thomas Macguire-->
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Account Login</title>
-        <link rel="icon" type="image/x-icon" href="LOOKING_FOR_GROUP_LOGO.png">
+        <link rel="icon" type="image/x-icon" href="/static/IMG/EZLFG-logo.ico">
         <!--Proper Scaling-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--Bootstrap Linking-->
@@ -15,50 +15,44 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <!--Font Awesome-->
         <script src="https://kit.fontawesome.com/b734ac1d38.js" crossorigin="anonymous"></script>
-
-        <link th:href="@{/css/UI_style.css}" rel="stylesheet">
-        <link th:href="@{css/password_style.css}" rel="stylesheet">
-
+        <link href="/static/css/UI_style.css" rel="stylesheet" type="text/css">
+        <!--<link th:href="@{/static/css/UI_style.css}" rel="stylesheet">-->
     </head>
 
     <body>
 
         <!--Navigational Menu-->
-        <header class="primary-color sticky-top">
+        <header class="secondary-color sticky-top">
             <nav class="navbar">
                 <div id="topNavBar" class="container-fluid">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <form>
+                    <form disabled>
                         <div class="search">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input class="search-input" type="search" placeholder="Search Groups">
+                            <input class="search-input" type="search" placeholder="Search Groups" disabled />
                         </div>
                     </form>
                     <div class="topnavbar-logo">
-
-                        <a class="navbar-brand" href="index.html">
-
-                            <img src="LOOKING_FOR_GROUP_LOGO.png" alt="EZLFG" width="110px" height="70px">
+                        <a class="navbar-brand" th:href="@{user/games}">
+                            <img src="/static/IMG/EZLFG-logo.ico" alt="EZLFG" width="110px" height="70px">
                         </a>
                     </div>
                 </div>
                 <div id="navMenu" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-
-                            <a class="nav-link" href="index.html">Home</a>
-
+                            <a class="nav-link" th:href="@{/user/games}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-groups.html">Your Groups</a>
+                            <a class="nav-link" th:href="@{/users/your-groups}">Your Groups</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-friends.html">Friends</a>
+                            <a class="nav-link" th:href="@{/users/friends/}">Friends</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-account.html">Your Account</a>
+                            <a class="nav-link" th:href="@{/users/account}">Your Account</a>
                         </li>
                     </ul>
                 </div>
@@ -103,20 +97,20 @@
 
             </div>
 
-            <div id="admin" class="tabcontent">
-<!--                <form>-->
-<!--                    <div class="login-form-input">-->
-<!--                        <label for="adminLoginUsername" class="form-label">Username</label>-->
-<!--                        <input id="adminLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">-->
-<!--                    </div>-->
-<!--                    <div class="login-form-input">-->
-<!--                        <label for="adminLoginPassword" class="form-label">Password</label>-->
-<!--                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">-->
-<!--                    </div>-->
-<!--                </form>-->
+<!--            <div id="admin" class="tabcontent">-->
+<!--&lt;!&ndash;                <form>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="login-form-input">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="adminLoginUsername" class="form-label">Username</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input id="adminLoginUsername" class="form-control form-control-lg" type="text" maxlength="15">&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="login-form-input">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="adminLoginPassword" class="form-label">Password</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input id="adminLoginPassword" class="form-control form-control-lg" type="password" maxlength="20">&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
 
 
-            </div>
+<!--            </div>-->
 
         </div>
         <script>

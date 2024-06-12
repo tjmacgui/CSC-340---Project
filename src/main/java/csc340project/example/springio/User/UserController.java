@@ -89,7 +89,7 @@ public class UserController {
         return "redirect:/users/account";
     }
 
-    @GetMapping("/users/ownedgames")
+    @GetMapping({"/users/ownedgames", "/user/games"})
     public String getIndexPage(Model model) {
         // get the logged in user from the security context
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();

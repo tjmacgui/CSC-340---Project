@@ -324,7 +324,7 @@ button1 {
     width: 800px;
     height: 600px;
     margin: auto;
-    padding: 40px;
+    padding-top: 40px;
     border-radius: 10px;
     position: relative;
 
@@ -416,8 +416,6 @@ a.signin {
 
 .tabcontent {
   align-items: center;
-  padding: 6px 12px;
-
   border-top: none;
 }
 
